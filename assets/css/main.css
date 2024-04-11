@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "Gelion Bold";
+  src: url("~/assets/fonts/GelionBold.ttf");
+}
+@font-face {
+  font-family: "Gelion Bold";
+  src: url("~/assets/fonts/GelionBold.ttf");
+}
+@font-face {
+  font-family: "Gelion Black";
+  src: url("~/assets/fonts/GelionBlack.ttf");
+}
+@font-face {
+  font-family: "Gelion Light";
+  src: url("~/assets/fonts/GelionLight.ttf");
+}
+@font-face {
+  font-family: "Gelion Medium";
+  src: url("~/assets/fonts/GelionMedium.ttf");
+}
+@font-face {
+  font-family: "Gelion Regular";
+  src: url("~/assets/fonts/GelionRegular.ttf");
+}
+@font-face {
+  font-family: "Gelion Semibold";
+  src: url("~/assets/fonts/GelionSemibold.ttf");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Gelion Regular";
+}
+
+*::selection {
+  background: #dfdfdf;
+  color: #000;
+}
