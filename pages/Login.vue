@@ -47,6 +47,7 @@ const login = handleSubmit(values => {
             }, 2000)
             return response.json().then((data) => {
                 const token = data.token
+                localStorage.setItem('token', token)
             })
         } return response.json().then((data) => {
             console.log(data, 'not found')
