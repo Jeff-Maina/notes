@@ -8,6 +8,13 @@ definePageMeta({
     layout: false
 })
 
+const isCategoryMenuShowing = ref(false)
+const toggleCategoryMenu = () => {
+    console.log('clicked')
+    isCategoryMenuShowing.value = !isCategoryMenuShowing.value
+}
+
+
 </script>
 
 
@@ -21,10 +28,11 @@ definePageMeta({
                 <header class="px-6 font-bold flex items-center justify-between w-full">
                     <h1 class="text-4xl tracking-tight text-[#3e3e3e]">Notes</h1>
                     <div class="relative">
-                        <button class="size-10 grid place-items-center rounded-full bg-neutral-200">
+                        <button @click="toggleCategoryMenu"
+                            class="size-10 grid place-items-center rounded-full bg-neutral-200">
                             <ListFilter :size="16" stroke-width="3" class="stroke-neutral-600" />
                         </button>
-                        <CategoryMenu />
+                        <CategoryMenu @toggleMenu="toggleCategoryMenu" :isCategoryMenuShowing="isCategoryMenuShowing" />
                     </div>
                 </header>
             </div>
