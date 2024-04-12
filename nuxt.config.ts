@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
-  modules: ['shadcn-nuxt'],
+  // modules: ['shadcn-nuxt'],
   shadcn: {
     prefix: '',
     componentDir: './components/ui'

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ArrowLeft, Check, Eye, EyeOff } from 'lucide-vue-next';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup'
 
 definePageMeta({
     layout: false,
@@ -13,6 +15,23 @@ const toggleVisibility = () => {
 }
 
 const router = useRouter()
+
+// input validation;
+interface RegisterForm {
+    email: string;
+    password: string;
+}
+
+const { errors, meta, defineField, isSubmitting, handleSubmit } = useForm<RegisterForm>({
+    validationSchema: yup.object({
+        email: yup.string().email().required(),
+        password: yup.string().min(6).required()
+    })
+})
+
+const Login = handleSubmit(values => )
+
+
 </script>
 
 
