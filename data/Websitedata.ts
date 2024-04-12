@@ -83,6 +83,21 @@ export const categories: CategoryInterface[] = [
         ],
         categoryItems: 25,
         categoryColor: "#ef4444"
+    },
+    {
+        category: "Tweets",
+        tags: [
+            { tagName: "Landscapes", tagCount: 20 },
+            { tagName: "Portraits", tagCount: 15 },
+            { tagName: "Nature", tagCount: 12 },
+            { tagName: "Animals", tagCount: 10 },
+            { tagName: "Travel", tagCount: 18 },
+            { tagName: "Nature", tagCount: 12 },
+            { tagName: "Animals", tagCount: 10 },
+            { tagName: "Travel", tagCount: 18 }
+        ],
+        categoryItems: 2,
+        categoryColor: "#1DA1F2"
     }
 ];
 

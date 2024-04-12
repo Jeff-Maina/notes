@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Asterisk, Book, Hash, Image, Link, ListTodo, Notebook } from 'lucide-vue-next';
+import { Asterisk, Book, Hash, Image, Link, ListTodo, Notebook, Twitter } from 'lucide-vue-next';
 import { VueElement, getCurrentInstance } from 'vue';
 import { boolean } from 'yup';
 import { categories } from '../../data/Websitedata'
@@ -51,7 +51,7 @@ const resetMenu = () => {
     <div v-if="isCategoryMenuShowing"
         class="absolute  rounded-3xl top-[150%] right-0 flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 shadow text-sm md:text-base menu"
         :class="anyCategoryClicked() ? 'scale-[.96]' : 'scale-100 bg-white'">
-        <button v-for="category, index in categories" :key="index" @click="toggleCategoryClicked(index)"
+        <div v-for="category, index in categories" :key="index" 
             class="h-14 w-56 md:w-64  flex items-center justify-between  font-normal  transition-colors duration-100 relative bg-white"
             :class="index === 0 ? 'rounded-t-2xl' : index === categories.length - 1 && 'rounded-b-2xl'"
             :disabled="anyCategoryClicked() && !isThisCategoryClicked(index)">
@@ -59,9 +59,9 @@ const resetMenu = () => {
             <div class="flex items-center w-full justify-between px-5 absolute left-2/4 -translate-x-2/4 transition-all duration-350 "
                 :class="[isFirst(index) ? 'rounded-t-2xl' : isLast(index, categories) && !isThisCategoryClicked(index) && 'rounded-b-2xl',
                 !anyCategoryClicked() ? ' scale-100 shadow-none z-10 translate-y-0 rounded-t-none' :
-                    isThisCategoryClicked(index) ? 'bg-white shadow -translate-y-2  z-20 scale-[1.06] rounded-t-2xl' :
+                    isThisCategoryClicked(index) ? 'bg-white shadow -translate-y-2  z-20 scale-[1.07] rounded-t-2xl' :
                         'translate-y-0 filter grayscale  bg-neutral-300']">
-                <div class="w-full h-14 flex items-center justify-between z-10 relative">
+                <button @click="toggleCategoryClicked(index)" class="w-full h-14 flex items-center justify-between z-10 relative">
                     <div class="flex items-center gap-3">
                         <Notebook v-if="category.category === 'Notes'" :size="16" class="-blue-500" />
                         <Link v-if="category.category === 'Links'" :size="16" class="-blue-500" />
@@ -69,6 +69,8 @@ const resetMenu = () => {
                         <Book v-if="category.category === 'Thoughts'" :size="16" class="-blue-500" />
                         <Image v-if="category.category === 'Images'" :size="16" class="-blue-500" />
                         <ListTodo v-if="category.category === 'Todos'" :size="16" class="-blue-500" />
+                        <Twitter v-if="category.category === 'Tweets'" :size="16" class="-blue-500" />
+
                         <span>
                             {{ category.category }}
                         </span>
@@ -78,7 +80,7 @@ const resetMenu = () => {
                         }}
                         </p>
                     </div>
-                </div>
+                </button>
                 <div class="absolute top-full w-full  bg-white left-0 z-0 rounded-b-2xl custom_transition overflow-hidden border-t flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 tags_box"
                     :class="isThisCategoryClicked(index) ? ` max-h-[14rem] overflow-scroll border-neutral-100 md:border-neutral-200 opacity-1 ` : 'max-h-0 border-none overflow-hidden -translate-y-[10px]'">
                     <a v-for="tag, i in category.tags" :key="i"
@@ -96,7 +98,7 @@ const resetMenu = () => {
                     </a>
                 </div>
             </div>
-        </button>
+        </div>
     </div>
 </template>
 
@@ -107,7 +109,7 @@ const resetMenu = () => {
 }
 
 .menu {
-    transition: transform 350ms linear, background-color 350ms linear;
+    transition: transform 350ms ease, background-color 350ms linear;
 }
 
 .custom_transition {

@@ -20,7 +20,7 @@ const toggleCategoryMenu = () => {
 
 <template>
     <main class="">
-        <section class="w-full h-screen py-4 max-w-5xl m-auto">
+        <section class="w-full h-screen py-4 max-w-4xl m-auto">
             <div>
                 <!-- <Sidebar /> -->
             </div>
