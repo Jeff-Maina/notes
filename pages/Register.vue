@@ -45,6 +45,9 @@ const register = handleSubmit(values => {
     }).then(response => {
         if (response.ok) {
             toast.success('All set! Dashboard loading...')
+            setTimeout(() => {
+                router.push('/notes')
+            }, 2000)
         } return response.json().then((data) => {
             const errorType = data.error[0].type
             console.log(errorType)
@@ -99,8 +102,8 @@ const register = handleSubmit(values => {
                         class="p-3 bg-neutral-100 placeholder:text-neutral-500 w-full rounded-xl lg:text-base pl-4  outline-none border border-zinc-100 focus:border-zinc-500"
                         placeholder="Password">
                     <div @click="toggleVisibility" class="absolute top-2/4 right-0 -translate-y-2/4  p-4 cursor-pointer">
-                        <Eye v-if="!isPasswordVisible" class="stroke-neutral-500 size-4 lg:size-5" />
-                        <EyeOff v-if="isPasswordVisible" class="stroke-neutral-500 size-4 lg:size-5" />
+                        <Eye v-if="isPasswordVisible" class="stroke-neutral-500 size-4" />
+                        <EyeOff v-if="!isPasswordVisible" class="stroke-neutral-500 size-4" />
                     </div>
                 </div>
             </div>
@@ -118,7 +121,7 @@ const register = handleSubmit(values => {
             <div class="absolute left-0 h-[1px] w-full bg-neutral-200/60 top-2/4 -translate-y-2/4"></div>
             <small class="text-center relative z-10 bg-white px-3 max-w-fit m-auto lg:text-lg">or</small>
         </div>
-        <button
+        <a href="/login/federated/google"
             class="border rounded-xl p-3 text-sm border-neutral-200 bg-blue-600 text-white lg:text-base w-full max-w-sm flex items-center gap-2 justify-center">
 
             <div class="s">
@@ -132,7 +135,7 @@ const register = handleSubmit(values => {
             Continue
             with
             google
-        </button>
+        </a>
 
         <div>
             <p class="text-sm text-center lg:text-base">
