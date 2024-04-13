@@ -41,6 +41,10 @@ body {
 }
 
 
+.mask{
+  @apply w-full h-screen bg-black/10 fixed inset-0 z-[998];
+}
+
 
 @layer base {
   :root {
