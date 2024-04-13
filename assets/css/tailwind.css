@@ -40,78 +40,76 @@ body {
   color: #000;
 }
 
-
-.mask{
+.mask {
   @apply w-full h-screen bg-black/10 fixed inset-0 z-[998];
 }
-
 
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
- 
+
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
- 
+
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
- 
+
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
- 
+
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
- 
+
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
- 
+
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
- 
+
     --ring: 0 0% 3.9%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
- 
+
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
- 
+
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
- 
+
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
- 
+
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
- 
+
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
- 
+
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
- 
+
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
- 
+
     --ring: 0 0% 83.1%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -119,4 +117,28 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ! ANIMATIONS */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+
+
+.menu_slide-enter-from,
+.menu_slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.menu_slide-enter-active,
+.menu_slide-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
