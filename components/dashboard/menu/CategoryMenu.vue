@@ -10,7 +10,6 @@ import {
   Twitter,
 } from "lucide-vue-next";
 
-import { boolean } from "yup";
 import { categories } from "../../../data/Websitedata";
 
 interface CategoryInterface {
@@ -42,23 +41,29 @@ const isThisCategoryClicked = (index: number) =>
 
 // Passed props
 const props = defineProps({
-  isCategoryMenuShowing: boolean,
+  isCategoryMenuShowing: {
+    type: Boolean,
+  },
 });
 
 const resetMenu = () => {
   clickedCategoryIndex.value = 1000;
 };
+
+// defining emits..to clear errors;
+const emits = defineEmits(["toggleMenu"])
+
+
 </script>
 
 <template>
-
   <!-- mask -->
   <UiMask
     @toggleMask="[resetMenu(), $emit('toggleMenu')]"
     :isMaskActive="isCategoryMenuShowing"
   />
 
-<!-- modal -->
+  <!-- modal -->
   <Transition name="menu_slide">
     <div
       v-if="isCategoryMenuShowing"
@@ -176,7 +181,6 @@ const resetMenu = () => {
       </div>
     </div>
   </Transition>
-
 </template>
 
 <style>

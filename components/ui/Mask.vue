@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { boolean } from "yup";
 
 const props = defineProps({
-  isMaskActive: boolean,
+  isMaskActive: {
+    type: Boolean
+  },
 });
+
+// defining emits;
+const emits = defineEmits(['toggleMask'])
 </script>
 
 <template>

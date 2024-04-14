@@ -1,13 +1,31 @@
 <script setup lang="ts">
-import { boolean } from "yup";
 import { Sparkles, SquareSlash } from "lucide-vue-next";
 
 // accept any props passed down from parent;
 const props = defineProps({
-  isHelpMenuOpen: boolean,
+  isHelpMenuOpen: {
+    type: Boolean,
+  },
 });
 
 // opening and closing shortcuts modal
+const isShortcutModalOpen = ref(false);
+const toggleShortcutModal: () => void = () =>
+  (isShortcutModalOpen.value = !isShortcutModalOpen.value);
+const closeShortcutModal: () => void = () =>
+  (isShortcutModalOpen.value = false);
+const openShortcutModal: () => void = () => (isShortcutModalOpen.value = true);
+
+onMounted(() => {
+  window.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key === "/") {
+      console.log("Ctrl + / pressed");
+      openShortcutModal();
+    }
+  });
+});
+
+const emits = defineEmits(["toggleHelpMenu"])
 
 </script>
 
@@ -32,6 +50,7 @@ const props = defineProps({
         </div>
         <p>Features</p></button
       ><button
+        @click="[toggleShortcutModal(), $emit('toggleHelpMenu')]"
         class="w-full px-5 flex items-center justify-between h-14 hover:bg-neutral-100 transition-colors duration-100"
       >
         <div class="flex items-center gap-3">
@@ -45,7 +64,10 @@ const props = defineProps({
   </Transition>
 
   <!-- Shortcuts modal -->
-  <DashboardModalsShortcuts />
+  <DashboardModalsShortcuts
+    @toggleShortcutModal="closeShortcutModal"
+    :isShortcutModalOpen="isShortcutModalOpen"
+  />
 </template>
 
 <style></style>

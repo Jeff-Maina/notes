@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { boolean } from "yup";
-import { User, Bell, FileText,Mail,BarChartBig } from "lucide-vue-next";
+
+import { User, Bell, FileText, Mail, BarChartBig } from "lucide-vue-next";
 
 const props = defineProps({
-  isSettingsModalActive: boolean,
+  isSettingsModalActive: {
+    type: Boolean,
+  },
 });
+
+// defining emits
+const emits = defineEmits(["toggleSettingsModal"])
 </script>
 
 <template>
-  <Transition name="fade">
-    <div
-      @click="$emit('toggleSettingsModal')"
-      v-if="isSettingsModalActive"
-      class="mask"
-    ></div>
-  </Transition>
+  <!-- Mask -->
+  <UiMask
+    @toggleMask="$emit('toggleSettingsModal')"
+    :isMaskActive="isSettingsModalActive"
+  />
+
+  <!-- MODAL -->
   <Transition name="modal_slide">
     <div
       @click.self="$emit('toggleSettingsModal')"
@@ -41,7 +46,7 @@ const props = defineProps({
           <p>My activity</p>
         </button>
         <button
-          class="w-full h-16 px-5  flex items-center gap-5 text-lg  hover:bg-neutral-100 duration-100"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100"
         >
           <div>
             <Bell :size="20" stroke-width="2" />
@@ -49,7 +54,7 @@ const props = defineProps({
           <p>Notifications</p>
         </button>
         <button
-          class="w-full h-16 px-5  flex items-center gap-5 text-lg  hover:bg-neutral-100 duration-100"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100"
         >
           <div>
             <FileText :size="20" stroke-width="2" />
@@ -57,7 +62,7 @@ const props = defineProps({
           <p>Acknowledgements</p>
         </button>
         <button
-          class="w-full h-16 px-5  flex items-center gap-5 text-lg  hover:bg-neutral-100 duration-100 rounded-b-2xl"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100 rounded-b-2xl"
         >
           <div>
             <Mail :size="20" stroke-width="2" />
@@ -69,6 +74,4 @@ const props = defineProps({
   </Transition>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

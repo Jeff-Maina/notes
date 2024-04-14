@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { boolean } from "yup";
 import { LogOut, Settings, Flame, Palette } from "lucide-vue-next";
 
 // accept any props passed down from parent;
 const props = defineProps({
-  isUserMenuOpen: boolean,
+  isUserMenuOpen: {
+    type: Boolean,
+  },
 });
 
 // mask;
@@ -19,6 +20,10 @@ const closeThemeOptions: () => void = () => (isChangingTheme.value = false);
 const isSettingsModalActive = ref(false);
 const toggleSettingsModal: () => void = () =>
   (isSettingsModalActive.value = !isSettingsModalActive.value);
+
+// defining emits
+const emits = defineEmits(["toggleUserMenu"])
+
 </script>
 
 <template>
