@@ -127,7 +127,7 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 
@@ -140,7 +140,7 @@ body {
 
 .menu_slide-enter-active,
 .menu_slide-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .modal_slide-enter-from,
@@ -151,5 +151,5 @@ body {
 
 .modal_slide-enter-active,
 .modal_slide-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }

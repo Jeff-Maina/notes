@@ -87,18 +87,18 @@ const searchInput = ref("");
             </div>
           </div>
           <div class="px-5 h-10 bg-neutral-100 flex items-center">
-            <p class="font-medium text-sm">Navigation</p>
+            <p class="font-medium text-sm">Menus</p>
           </div>
           <div
             class="w-full flex flex-col border-b border-t border-neutral-100 md:border-neutral-200 divide-y divide-neutral-100 md:divide-neutral-200 text-neutral-600"
           >
             <div class="w-full h-14 px-5 flex items-center justify-between">
-              <p>Create new note</p>
-              <p>Ctrl + Alt + C</p>
+              <p>Open settings</p>
+              <p>Ctrl + Alt + S</p>
             </div>
             <div class="w-full h-14 px-5 flex items-center justify-between">
-              <p>Create new note</p>
-              <p>Ctrl + Alt + C</p>
+              <p>Open Filter Menu</p>
+              <p>Ctrl + Alt + F</p>
             </div>
             <div class="w-full h-14 px-5 flex items-center justify-between">
               <p>Create new note</p>
@@ -112,17 +112,10 @@ const searchInput = ref("");
             class="w-full flex flex-col border-b border-t border-neutral-100 md:border-neutral-200 divide-y divide-neutral-100 md:divide-neutral-200 text-neutral-600"
           >
             <div class="w-full h-14 px-5 flex items-center justify-between">
-              <p>Create new note</p>
-              <p>Ctrl + Alt + C</p>
+              <p>Show keyboard shortcuts</p>
+              <p>Ctrl + /</p>
             </div>
-            <div class="w-full h-14 px-5 flex items-center justify-between">
-              <p>Create new note</p>
-              <p>Ctrl + Alt + C</p>
-            </div>
-            <div class="w-full h-14 px-5 flex items-center justify-between">
-              <p>Create new note</p>
-              <p>Ctrl + Alt + C</p>
-            </div>
+
           </div>
         </div>
       </div>

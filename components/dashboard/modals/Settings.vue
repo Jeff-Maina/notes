@@ -10,6 +10,10 @@ const props = defineProps({
 
 // defining emits
 const emits = defineEmits(["toggleSettingsModal"])
+
+
+// feedback logic;
+const isSendingFeedback = isSendingFeedback
 </script>
 
 <template>
@@ -53,6 +57,16 @@ const emits = defineEmits(["toggleSettingsModal"])
           </div>
           <p>Notifications</p>
         </button>
+     
+        <button
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100 rounded-b-2xl"
+        >
+        
+          <div>
+            <Mail :size="20" stroke-width="2" />
+          </div>
+          <p>Send Feedback.</p>
+        </button>
         <button
           class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100"
         >
@@ -60,14 +74,6 @@ const emits = defineEmits(["toggleSettingsModal"])
             <FileText :size="20" stroke-width="2" />
           </div>
           <p>Acknowledgements</p>
-        </button>
-        <button
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100 rounded-b-2xl"
-        >
-          <div>
-            <Mail :size="20" stroke-width="2" />
-          </div>
-          <p>Report an issue.</p>
         </button>
       </div>
     </div>
