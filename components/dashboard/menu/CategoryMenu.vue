@@ -8,6 +8,9 @@ import {
   ListTodo,
   Notebook,
   Twitter,
+  ChevronLeft,
+  Dot,
+  PaintBucket,
 } from "lucide-vue-next";
 
 import { categories } from "../../../data/Websitedata";
@@ -51,9 +54,7 @@ const resetMenu = () => {
 };
 
 // defining emits..to clear errors;
-const emits = defineEmits(["toggleMenu"])
-
-
+const emits = defineEmits(["toggleMenu"]);
 </script>
 
 <template>
@@ -101,42 +102,18 @@ const emits = defineEmits(["toggleMenu"])
             class="w-full h-14 flex items-center justify-between z-10 relative"
           >
             <div class="flex items-center gap-3 select-none">
-              <Notebook
-                v-if="category.category === 'Notes'"
-                :size="16"
-                class="-blue-500"
-              />
-              <Link
-                v-if="category.category === 'Links'"
-                :size="16"
-                class="-blue-500"
-              />
+              <ChevronLeft v-if="isThisCategoryClicked(index)" :size="16" />
+              <Notebook v-else-if="category.category === 'Notes'" :size="16" />
+              <Link v-else-if="category.category === 'Links'" :size="16" />
               <Asterisk
-                v-if="category.category === 'Code Snippets'"
+                v-else-if="category.category === 'Code Snippets'"
                 :size="16"
-                class="-blue-500"
               />
-              <Book
-                v-if="category.category === 'Thoughts'"
-                :size="16"
-                class="-blue-500"
-              />
-              <Image
-                v-if="category.category === 'Images'"
-                :size="16"
-                class="-blue-500"
-              />
-              <ListTodo
-                v-if="category.category === 'Todos'"
-                :size="16"
-                class="-blue-500"
-              />
-              <Twitter
-                v-if="category.category === 'Tweets'"
-                :size="16"
-                class="-blue-500"
-              />
-
+              <Book v-else-if="category.category === 'Thoughts'" :size="16" />
+              <Image v-else-if="category.category === 'Images'" :size="16" />
+              <ListTodo v-else-if="category.category === 'Todos'" :size="16" />
+              <Twitter v-else-if="category.category === 'Tweets'" :size="16" />
+              <PaintBucket v-else-if="category.category === 'Colors'" :size="16"  />
               <span>
                 {{ category.category }}
               </span>
@@ -154,7 +131,7 @@ const emits = defineEmits(["toggleMenu"])
             class="absolute top-full w-full bg-white left-0 z-0 rounded-b-2xl custom_transition overflow-hidden border-t flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 tags_box"
             :class="
               isThisCategoryClicked(index)
-                ? ` max-h-[14rem] overflow-scroll border-neutral-100 md:border-neutral-200 opacity-1 `
+                ? ` max-h-[14rem] overflow-scroll border-neutral-100 md:border-neutral-300 opacity-1 `
                 : 'max-h-0 border-none overflow-hidden -translate-y-[10px]'
             "
           >
@@ -163,8 +140,9 @@ const emits = defineEmits(["toggleMenu"])
               :key="i"
               class="w-full flex items-center justify-between min-h-14 px-5 hover:bg-neutral-100 cursor-pointer"
             >
-              <div class="flex items-center gap-3 select-none">
-                <Hash :size="12" />
+              <div class="flex items-center gap-3 select-none text-neutral-800">
+                <!-- <Dot :size="16" /> -->
+                <div class="size-[6px] rounded-full bg-red-500"></div>
                 <span>{{ tag.tagName }}</span>
               </div>
               <div class="grid place-items-center rounded-full badge">

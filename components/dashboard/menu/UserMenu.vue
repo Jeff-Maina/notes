@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { LogOut, Settings, Flame, Palette } from "lucide-vue-next";
+import {
+  LogOut,
+  Settings,
+  Flame,
+  Palette,
+  ChevronLeft,
+  Check,
+} from "lucide-vue-next";
 
 // accept any props passed down from parent;
 const props = defineProps({
@@ -12,9 +19,14 @@ const props = defineProps({
 
 // animations for when changing a theme;
 const isChangingTheme = ref(false);
-const changeTheme: () => void = () =>
+const toggleThemeMenu: () => void = () =>
   (isChangingTheme.value = !isChangingTheme.value);
 const closeThemeOptions: () => void = () => (isChangingTheme.value = false);
+
+const activeTheme = ref("monochrome");
+const changeTheme: (value: string) => void = (theme: string) =>
+  (activeTheme.value = theme);
+const isThemeActive = (theme: string) => activeTheme.value === theme;
 
 //toggling settings modal;
 const isSettingsModalActive = ref(false);
@@ -22,8 +34,17 @@ const toggleSettingsModal: () => void = () =>
   (isSettingsModalActive.value = !isSettingsModalActive.value);
 
 // defining emits
-const emits = defineEmits(["toggleUserMenu"])
+const emits = defineEmits(["toggleUserMenu"]);
 
+// SHORTCUT;
+onMounted(() => {
+  window.addEventListener("keydown", (e) => {
+    console.log(e.key);
+    if (e.ctrlKey && e.altKey && e.key === "s") {
+      isSettingsModalActive.value = true;
+    }
+  });
+});
 </script>
 
 <template>
@@ -53,10 +74,12 @@ const emits = defineEmits(["toggleUserMenu"])
           "
         >
           <button
-            @click="changeTheme"
+            @click="toggleThemeMenu"
             class="flex w-full items-center gap-3 select-none h-14"
           >
-            <div><Palette :size="16" /></div>
+            <div v-if="isChangingTheme"><ChevronLeft :size="16" /></div>
+            <div v-else><Palette :size="16" /></div>
+
             <p class="">Theme</p>
           </button>
           <div
@@ -64,22 +87,52 @@ const emits = defineEmits(["toggleUserMenu"])
             :class="isChangingTheme ? 'h-36' : 'h-[0px]'"
           >
             <button
-              class="min-h-12 h-12 px-5 flex items-center gap-3 select-none"
+              @click="changeTheme('monochrome')"
+              class="min-h-12 h-12 px-5 select-none flex items-center justify-between"
             >
-              <div class="size-2 rounded-full bg-black"></div>
-              <p>Monochrome</p>
+              <div class="flex items-center gap-3">
+                <div class="size-2 rounded-full bg-black"></div>
+                <p>Monochrome</p>
+              </div>
+              <div>
+                <Check
+                  v-if="isThemeActive('monochrome')"
+                  :size="16"
+                  stroke-width="3"
+                />
+              </div>
             </button>
             <button
-              class="min-h-12 h-12 px-5 flex items-center gap-3 select-none"
+              @click="changeTheme('retro')"
+              class="min-h-12 h-12 px-5 select-none flex items-center justify-between"
             >
-              <div class="size-2 rounded-full bg-[#D20062]"></div>
-              <p>Retro</p>
+              <div class="flex items-center gap-3">
+                <div class="size-2 rounded-full bg-[#D20062]"></div>
+                <p>Retro</p>
+              </div>
+              <div>
+                <Check
+                  v-if="isThemeActive('retro')"
+                  :size="16"
+                  stroke-width="3"
+                />
+              </div>
             </button>
             <button
-              class="min-h-12 h-12 px-5 flex items-center gap-3 select-none"
+              @click="changeTheme('cosmic')"
+              class="min-h-12 h-12 px-5 select-none flex items-center justify-between"
             >
-              <div class="size-2 rounded-full bg-blue-600"></div>
-              <p>Cosmic</p>
+              <div class="flex items-center gap-3">
+                <div class="size-2 rounded-full bg-blue-600"></div>
+                <p>Cosmic</p>
+              </div>
+              <div>
+                <Check
+                  v-if="isThemeActive('cosmic')"
+                  :size="16"
+                  stroke-width="3"
+                />
+              </div>
             </button>
           </div>
         </div>

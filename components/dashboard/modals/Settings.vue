@@ -1,6 +1,13 @@
 <script setup lang="ts">
-
-import { User, Bell, FileText, Mail, BarChartBig } from "lucide-vue-next";
+import {
+  User,
+  Bell,
+  FileText,
+  Mail,
+  BarChartBig,
+  ChevronLeft,
+  ArrowRight,
+} from "lucide-vue-next";
 
 const props = defineProps({
   isSettingsModalActive: {
@@ -9,32 +16,40 @@ const props = defineProps({
 });
 
 // defining emits
-const emits = defineEmits(["toggleSettingsModal"])
-
+const emits = defineEmits(["toggleSettingsModal"]);
 
 // feedback logic;
-const isSendingFeedback = isSendingFeedback
+const isSendingFeedback = ref(false);
+const toggleFeedbackForm = () =>
+  (isSendingFeedback.value = !isSendingFeedback.value);
+const openFeedback = () => (isSendingFeedback.value = true);
+const closeFeedbackForm = () => (isSendingFeedback.value = false);
 </script>
 
 <template>
   <!-- Mask -->
   <UiMask
-    @toggleMask="$emit('toggleSettingsModal')"
+    @toggleMask="[$emit('toggleSettingsModal'), closeFeedbackForm()]"
     :isMaskActive="isSettingsModalActive"
   />
 
   <!-- MODAL -->
   <Transition name="modal_slide">
     <div
-      @click.self="$emit('toggleSettingsModal')"
+      @click.self="[$emit('toggleSettingsModal'), closeFeedbackForm()]"
       v-if="isSettingsModalActive"
-      class="fixed h-screen w-full flex items-center justify-center z-[999] inset-0"
+      :class="isSendingFeedback ? 'scale-[.96]' : 'scale-100'"
+      class="fixed h-screen w-full flex items-center justify-center z-[999] inset-0 transition-transform duration-300"
     >
       <div
         class="w-full max-w-sm bg-white rounded-2xl shadow flex flex-col divide-y divide-neutral-100 md:divide-neutral-200"
       >
         <button
+          :disabled="isSendingFeedback"
           class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-100"
+          :class="
+            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+          "
         >
           <div>
             <User :size="20" stroke-width="2" />
@@ -42,7 +57,11 @@ const isSendingFeedback = isSendingFeedback
           <p>Account</p>
         </button>
         <button
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-100"
+          :disabled="isSendingFeedback"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-100"
+          :class="
+            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+          "
         >
           <div>
             <BarChartBig :size="20" stroke-width="2" />
@@ -50,30 +69,65 @@ const isSendingFeedback = isSendingFeedback
           <p>My activity</p>
         </button>
         <button
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100"
+          :disabled="isSendingFeedback"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-100"
+          :class="
+            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+          "
         >
           <div>
             <Bell :size="20" stroke-width="2" />
           </div>
           <p>Notifications</p>
         </button>
-     
-        <button
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100 rounded-b-2xl"
-        >
-        
-          <div>
-            <Mail :size="20" stroke-width="2" />
+
+        <div class="relative h-16 z-[20]">
+          <div
+            class="w-full h-16 flex items-center gap-5 text-lg absolute left-2/4 -translate-x-1/2 transition-all duration-300"
+            :class="
+              isSendingFeedback
+                ? 'scale-[1.06] -translate-y-10 bg-white rounded-t-2xl'
+                : ' scale-100 -translate-y-0'
+            "
+          >
+            <button
+              @click="toggleFeedbackForm"
+              class="flex items-center gap-5 px-5 w-full h-full"
+            >
+              <Transition>
+                <ChevronLeft
+                  v-if="isSendingFeedback"
+                  :size="20"
+                  stroke-width="2"
+                />
+                <Mail v-else :size="20" stroke-width="2" />
+              </Transition>
+
+              <Transition>
+                <p v-if="isSendingFeedback">Back</p>
+                <p v-else>Send Feedback</p>
+              </Transition>
+            </button>
+            <DashboardModalsFeedbackForm
+              @closeForm="closeFeedbackForm"
+              :isSendingFeedback="isSendingFeedback"
+            />
           </div>
-          <p>Send Feedback.</p>
-        </button>
+        </div>
         <button
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg hover:bg-neutral-100 duration-100"
+          :disabled="isSendingFeedback"
+          class="w-full h-16 px-5 flex items-center justify-between text-lg transition-all duration-100 rounded-b-2xl"
+          :class="
+            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+          "
         >
-          <div>
-            <FileText :size="20" stroke-width="2" />
+          <div class="flex items-center gap-5">
+            <div>
+              <FileText :size="20" stroke-width="2" />
+            </div>
+            <p>Acknowledgements</p>
           </div>
-          <p>Acknowledgements</p>
+          <ArrowRight :size="18" />
         </button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Sparkles, SquareSlash } from "lucide-vue-next";
+import { Sparkles, SquareSlash, ArrowLeft, ArrowRight } from "lucide-vue-next";
 
 // accept any props passed down from parent;
 const props = defineProps({
@@ -25,8 +25,7 @@ onMounted(() => {
   });
 });
 
-const emits = defineEmits(["toggleHelpMenu"])
-
+const emits = defineEmits(["toggleHelpMenu"]);
 </script>
 
 <template>
@@ -43,12 +42,16 @@ const emits = defineEmits(["toggleHelpMenu"])
       class="absolute left-full bottom-full bg-white rounded-3xl flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 w-64 shadow transition-transform duration-350 z-[999] overflow-hidden"
     >
       <button
-        class="w-full px-5 flex items-center gap-3 h-14 hover:bg-neutral-100 transition-colors duration-100"
+        class="w-full flex items-center justify-between px-5 h-14 hover:bg-neutral-100 transition-colors duration-100"
       >
-        <div>
-          <Sparkles :size="16" class="stroke-neutral-800" />
+        <div class="flex items-center gap-3">
+          <div>
+            <Sparkles :size="16" class="stroke-neutral-800" />
+          </div>
+          <p>Features</p>
         </div>
-        <p>Features</p></button
+        <ArrowRight :size="16" />
+        </button
       ><button
         @click="[toggleShortcutModal(), $emit('toggleHelpMenu')]"
         class="w-full px-5 flex items-center justify-between h-14 hover:bg-neutral-100 transition-colors duration-100"
