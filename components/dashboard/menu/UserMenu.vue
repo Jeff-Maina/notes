@@ -39,12 +39,13 @@ const emits = defineEmits(["toggleUserMenu"]);
 // SHORTCUT;
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
-    console.log(e.key);
     if (e.ctrlKey && e.altKey && e.key === "s") {
       isSettingsModalActive.value = true;
     }
   });
 });
+
+
 </script>
 
 <template>

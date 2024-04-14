@@ -6,7 +6,20 @@ const props = defineProps({
   },
 });
 
+onMounted(() => {
+  window.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === "F") {
+      console.log("new folder yo");
+    }
+  });
+});
+
 const emits = defineEmits(["closeMenu"]);
+
+// Create new Item;
+const isCreatingFolder = ref(false);
+const createNewFolder = () => (isCreatingFolder.value = true);
+const closeModal = () => (isCreatingFolder.value = false);
 </script>
 
 <template>
@@ -14,7 +27,7 @@ const emits = defineEmits(["closeMenu"]);
   <Transition name="menu_slide">
     <div
       v-if="isCreatingNewItem"
-      class="absolute top-[150%] right-0 w-52 bg-white shadow rounded-3xl z-[999] flex flex-col divide divide-y divide-neutral-100 md:divide-neutral-200 overflow-hidden font-normal"
+      class="absolute md:!top-[150%] right-0 w-52 bg-white shadow rounded-3xl z-[999] flex flex-col divide divide-y divide-neutral-100 md:divide-neutral-200 overflow-hidden font- text-sm md:text-base font-normal"
     >
       <button
         class="h-14 w-full px-5 flex items-center gap-3 hover:bg-neutral-100 transition-all duration-100"
@@ -23,6 +36,7 @@ const emits = defineEmits(["closeMenu"]);
         <span>New file</span>
       </button>
       <button
+        @click="[createNewFolder(), $emit('closeMenu')]"
         class="h-14 w-full px-5 flex items-center gap-3 hover:bg-neutral-100 transition-all duration-100"
       >
         <div><FolderPlus :size="18" /></div>
@@ -30,6 +44,10 @@ const emits = defineEmits(["closeMenu"]);
       </button>
     </div>
   </Transition>
+  <DashboardModalsNewfolderModal
+    :isCreatingFolder="isCreatingFolder"
+    @closeModal="closeModal"
+  />
 </template>
 
 <style></style>
