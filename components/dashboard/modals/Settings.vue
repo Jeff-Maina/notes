@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { boolean } from "yup";
-import { User, Bell, FileText,Mail } from "lucide-vue-next";
+import { User, Bell, FileText,Mail,BarChartBig } from "lucide-vue-next";
 
 const props = defineProps({
   isSettingsModalActive: boolean,
@@ -15,7 +15,7 @@ const props = defineProps({
       class="mask"
     ></div>
   </Transition>
-  <Transition name="slide">
+  <Transition name="modal_slide">
     <div
       @click.self="$emit('toggleSettingsModal')"
       v-if="isSettingsModalActive"
@@ -31,6 +31,14 @@ const props = defineProps({
             <User :size="20" stroke-width="2" />
           </div>
           <p>Account</p>
+        </button>
+        <button
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-100"
+        >
+          <div>
+            <BarChartBig :size="20" stroke-width="2" />
+          </div>
+          <p>My activity</p>
         </button>
         <button
           class="w-full h-16 px-5  flex items-center gap-5 text-lg  hover:bg-neutral-100 duration-100"
@@ -62,14 +70,5 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.slide-enter-from,
-.slide-leave-to {
-  opacity: 0;
-  transform: translateY(40px);
-}
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
 </style>
