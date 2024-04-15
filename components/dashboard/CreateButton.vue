@@ -5,8 +5,6 @@ const isCreatingNewItem = ref(false);
 const toggleCreatingNewItem: () => void = () =>
   (isCreatingNewItem.value = !isCreatingNewItem.value);
 const closeMenu: () => void = () => (isCreatingNewItem.value = false);
-
-
 </script>
 
 <template>
@@ -20,7 +18,7 @@ const closeMenu: () => void = () => (isCreatingNewItem.value = false);
         :class="isCreatingNewItem ? 'rotate-45' : 'rotate-0'"
         class="transition-all duration-100"
       >
-        <Plus class="stroke-white size-4 lg:size-5" stroke-width="3" />
+        <Plus class="stroke-white size-4" stroke-width="3" />
       </div>
     </button>
     <DashboardMenuNewItemMenu

@@ -46,9 +46,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
       >
         <button
           :disabled="isSendingFeedback"
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-100"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-200"
           :class="
-            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
           "
         >
           <div>
@@ -58,9 +58,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
         </button>
         <button
           :disabled="isSendingFeedback"
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-100"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-200"
           :class="
-            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
           "
         >
           <div>
@@ -70,9 +70,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
         </button>
         <button
           :disabled="isSendingFeedback"
-          class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-100"
+          class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-200"
           :class="
-            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
           "
         >
           <div>
@@ -116,9 +116,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
         </div>
         <button
           :disabled="isSendingFeedback"
-          class="w-full h-16 px-5 flex items-center justify-between text-lg transition-all duration-100 rounded-b-2xl"
+          class="w-full h-16 px-5 flex items-center justify-between text-lg transition-all duration-200 rounded-b-2xl"
           :class="
-            isSendingFeedback ? 'bg-red-200 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
           "
         >
           <div class="flex items-center gap-5">

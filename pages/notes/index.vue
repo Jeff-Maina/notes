@@ -36,7 +36,7 @@ const closeCategoryMenu = () => (isCategoryMenuShowing.value = false);
                 <ListFilter
                   v-if="!isCategoryMenuShowing"
                   stroke-width="3"
-                  class="stroke-neutral-600 size-4 lg:size-5"
+                  class="stroke-neutral-600 size-4"
                 />
                 <X
                   v-else

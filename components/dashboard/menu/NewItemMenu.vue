@@ -26,6 +26,13 @@ onMounted(() => {
     }
   });
 });
+
+const itemBeingCreated = ref("");
+const createItem = (value: string) => (itemBeingCreated.value = value);
+
+const closeActiveModal = () => {
+  itemBeingCreated.value = "";
+};
 </script>
 
 <template>
@@ -39,14 +46,16 @@ onMounted(() => {
       class="absolute top-[150%] right-0 w-52 bg-white shadow rounded-3xl z-[999] flex flex-col divide divide-y divide-neutral-100 md:divide-neutral-200 font- text-sm md:text-base font-normal transition-transform duration-350"
       :class="isCreatingItem ? 'scale-[.96]' : 'scale-100 bg-white'"
     >
-      <div class="h-14 ">
+      <div class="h-14">
         <div
-          class="flex items-center w-full justify-between absolute right-0 transition-all duration-350 bg-white z-20 rounded-t-3xl"
-          :class="isCreatingItem ? 'scale-[1.1] w-[140%]' : 'scale-1 bg-white'"
+          class="flex items-center justify-between absolute right-0 transition-all duration-350 bg-white z-20 rounded-t-3xl"
+          :class="
+            isCreatingItem ? 'scale-[1.1] w-[120%]' : 'scale-1 bg-white w-full'
+          "
         >
           <button
             @click="toggleCreateNewItem"
-            class="h-14 px-5 rounded-t-3xl w-full flex items-center gap-3  transition-all duration-100 hover:bg-neutral-100"
+            class="h-14 px-5 rounded-t-3xl w-full flex items-center gap-3 transition-all duration-100 hover:bg-neutral-100"
           >
             <div>
               <FilePlus2 v-if="!isCreatingItem" :size="18" />
@@ -54,7 +63,11 @@ onMounted(() => {
             </div>
             <span>New file</span>
           </button>
-          <DashboardMenuChooseItemMenu :isCreatingItem="isCreatingItem" />
+          <DashboardMenuChooseItemMenu
+            @closeModal="[$emit('closeMenu'), dontCreate()]"
+            @createItem="createItem"
+            :isCreatingItem="isCreatingItem"
+          />
         </div>
       </div>
       <!-- create new folder button -->
@@ -68,9 +81,15 @@ onMounted(() => {
       </button>
     </div>
   </Transition>
+
+  <!-- Modals -->
   <DashboardModalsNewfolderModal
     :isCreatingFolder="isCreatingFolder"
     @closeModal="closeModal"
+  />
+  <DashboardModalsNewlink
+    :itemBeingCreated="itemBeingCreated"
+    @closeModal="closeActiveModal"
   />
 </template>
 
