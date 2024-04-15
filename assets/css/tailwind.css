@@ -138,7 +138,7 @@ body {
 
 .menu_slide-enter-active,
 .menu_slide-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .modal_slide-enter-from,
@@ -149,7 +149,7 @@ body {
 
 .modal_slide-enter-active,
 .modal_slide-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 /** common styles */

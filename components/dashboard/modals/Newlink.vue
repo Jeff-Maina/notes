@@ -171,3 +171,9 @@ const resetAll = () => {
 </template>
 
 <style></style>
+
+<!-- Reset email input -->
+<!-- link the pages' actual link -->
+<!-- fix save ui...kinda sucks -->
+<!-- fix loading states and disable buttons when needed -->
+<!-- show something else as image is fetching -->
