@@ -130,8 +130,6 @@ body {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-
-
 .menu_slide-enter-from,
 .menu_slide-leave-to {
   opacity: 0;
@@ -152,4 +150,10 @@ body {
 .modal_slide-enter-active,
 .modal_slide-leave-active {
   transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/** common styles */
+
+.b_container {
+  @apply flex flex-col divide-y divide-neutral-100 md:divide-neutral-200;
 }

@@ -77,29 +77,29 @@ const emits = defineEmits(["toggleMenu"]);
         class="h-14 w-56 md:w-64 flex items-center justify-between font-normal transition-colors duration-100 relative bg-white"
         :class="
           index === 0
-            ? 'rounded-t-2xl'
-            : index === categories.length - 1 && 'rounded-b-2xl'
+            ? 'rounded-t-3xl'
+            : index === categories.length - 1 && 'rounded-b-3xl'
         "
       >
         <div
-          class="flex items-center w-full justify-between px-5 absolute left-2/4 -translate-x-2/4 transition-all duration-350"
+          class="flex items-center w-full justify-between px-5 absolute left-2/4  -translate-x-2/4 transition-all duration-350"
           :class="[
             isFirst(index)
-              ? 'rounded-t-2xl'
+              ? 'rounded-t-3xl'
               : isLast(index, categories) &&
                 !isThisCategoryClicked(index) &&
-                'rounded-b-2xl',
+                'rounded-b-3xl',
             !anyCategoryClicked()
-              ? ' scale-100 shadow-none z-10 translate-y-0 rounded-t-none'
+              ? ' scale-100 shadow-none z-10 translate-y-0 rounded-t-3xl'
               : isThisCategoryClicked(index)
-              ? 'bg-white shadow -translate-y-2  z-20 scale-[1.07] rounded-t-2xl'
-              : 'translate-y-0 filter grayscale  bg-neutral-300',
+              ? 'bg-white shadow -translate-y-2  z-20 scale-[1.07] rounded-t-3xl'
+              : 'translate-y-0 bg-neutral-300',
           ]"
         >
           <button
             @click="toggleCategoryClicked(index)"
             :disabled="anyCategoryClicked() && !isThisCategoryClicked(index)"
-            class="w-full h-14 flex items-center justify-between z-10 relative"
+            class="w-full h-14 flex items-center justify-between z-10 relative rounded-t-3xl"
           >
             <div class="flex items-center gap-3 select-none">
               <ChevronLeft v-if="isThisCategoryClicked(index)" :size="16" />
@@ -128,7 +128,7 @@ const emits = defineEmits(["toggleMenu"]);
             </div>
           </button>
           <div
-            class="absolute top-full w-full bg-white left-0 z-0 rounded-b-2xl custom_transition overflow-hidden border-t flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 tags_box"
+            class="absolute top-full w-full bg-white left-0 z-0 rounded-b-3xl custom_transition overflow-hidden border-t flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 tags_box"
             :class="
               isThisCategoryClicked(index)
                 ? ` max-h-[14rem] overflow-scroll border-neutral-100 md:border-neutral-300 opacity-1 `

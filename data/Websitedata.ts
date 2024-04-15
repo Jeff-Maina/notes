@@ -5,7 +5,12 @@ interface CategoryInterface {
         tagCount: number
     }[],
     categoryItems: number,
-    categoryColor: string
+    categoryColor: string,
+}
+
+interface AvailableCategoriesInterface {
+    category: string,
+    link: string
 }
 
 export const categories: CategoryInterface[] = [
@@ -112,3 +117,35 @@ export const categories: CategoryInterface[] = [
     }
 ];
 
+
+export const availableCategories: AvailableCategoriesInterface[] = [
+    {
+        category: 'Note',
+        link: 'new-note'
+    },
+    {
+        category: 'Link',
+        link: 'new-link'
+    },
+    {
+        category: 'Code Snippet',
+        link: 'new-codesnippet'
+    },
+    {
+        category: 'Thought',
+        link: 'just-a-though'
+    }, {
+        category: 'Todo',
+        link: 'new-todo'
+    }, {
+        category: 'Image',
+        link: 'new-image'
+    }, {
+        category: 'Tweet',
+        link: 'new-tweet'
+    }
+    , {
+        category: 'Color',
+        link: 'new-color'
+    }
+]

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { X } from "lucide-vue-next";
 
-const folderName = ref("New Folder");
+const folderName = ref("");
 const folderColor = ref("blackf");
 const updateColor = (color: string) => (folderColor.value = color);
 </script>
@@ -54,19 +54,40 @@ const updateColor = (color: string) => (folderColor.value = color);
         <input
           type="text"
           :v-model="folderName"
-          class="text-2xl w-full bg-transparent border-none outline-none tracking-tight"
-          placeholder="Folder name"
+          class="text-2xl bg-transparent border-none outline-none tracking-tight w-full"
+          placeholder="Enter folder name"
         />
       </div>
     </div>
-    <div
-      class="flex flex-col rounded-3xl overflow-hidden w-full divide-y divide-neutral-100 md:divide-neutral-200"
-    >
+
+    <!-- description and create -->
+    <div class="shadow rounded-3xl overflow-hidden">
       <div
-        class="h-14 w-full rounde-2xl bg-white rounded- grid grid-cols-2 divide-x divide-neutral-100 md:divide-neutral-200 shadow"
+        class="w-full h-20 rounded-t-3xl bg-white border-b border-neutral-100 md:border-neutral-200 overflow-hidden"
       >
-        <div class="h-full w-full flex items-center justify-center"></div>
-        <div class="h-full w-full flex items-center justify-center"></div>
+        <textarea
+          class="w-full h-full p-5 resize-none text-neutral-800 placeholder:text-neutral-500"
+          placeholder="Enter description"
+        ></textarea>
+      </div>
+
+      <!-- create button -->
+      <div
+        class="flex flex-col rounded-b-3xl overflow-hidden w-full divide-y divide-neutral-100 md:divide-neutral-200"
+      >
+        <div
+          class="h-14 w-full bg-white rounded- grid grid-cols-2 divide-x divide-neutral-100 md:divide-neutral-200"
+        >
+          <div class="h-full w-full flex items-center justify-center"></div>
+          <div class="h-full w-full flex items-center justify-center">
+            <button
+              :disabled="true"
+              class="w-full h-full grid place-items-center bg-neutral-800 text-white disabled:bg-neutral-600"
+            >
+              Create
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -78,22 +99,34 @@ const updateColor = (color: string) => (folderColor.value = color);
         @click="updateColor('blackf')"
         class="h-10 grid place-items-center"
       >
-        <div class="size-4 rounded-full bg-black"></div>
+        <div
+          :class="folderColor == 'blackf' && 'ring-4 ring-offset-2 ring-neutral-500 scale-[.80]'"
+          class="size-4 rounded-full bg-black transition-all duration-150"
+        ></div>
       </button>
       <button @click="updateColor('redf')" class="h-10 grid place-items-center">
-        <div class="size-4 rounded-full bg-red-500"></div>
+        <div
+          :class="folderColor == 'redf' && 'ring-4 ring-offset-2 ring-red-500 scale-[.80]'"
+          class="size-4 rounded-full bg-red-500 transition-all duration-150"
+        ></div>
       </button>
       <button
         @click="updateColor('pinkf')"
         class="h-10 grid place-items-center"
       >
-        <div class="size-4 rounded-full bg-pink-500"></div>
+      <div
+          :class="folderColor == 'pinkf' && 'ring-4 ring-offset-2 ring-pink-500 scale-[.80]'"
+          class="size-4 rounded-full bg-pink-500 transition-all duration-150"
+        ></div>
       </button>
       <button
         @click="updateColor('bluef')"
         class="h-10 grid place-items-center"
       >
-        <div class="size-4 rounded-full bg-blue-500"></div>
+      <div
+          :class="folderColor == 'bluef' && 'ring-4 ring-offset-2 ring-blue-500 scale-[.80]'"
+          class="size-4 rounded-full bg-blue-500 transition-all duration-150"
+        ></div>
       </button>
     </div>
   </div>
