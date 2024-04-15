@@ -19,7 +19,7 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <div class="col-span-1 w-14 h-full lg:flex items-end shrink-0 hidden">
+  <div class="col-span-1 w-14 h-full md:flex items-end shrink-0 hidden">
     <div class="flex flex-col gap-2 py-4 w-full items-center">
       <button
         class="group/button relative bg-white size-10 rounded-full grid place-items-center"

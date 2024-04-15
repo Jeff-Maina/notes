@@ -7,11 +7,10 @@ const toggleCreatingNewItem: () => void = () =>
 const closeMenu: () => void = () => (isCreatingNewItem.value = false);
 
 
-
 </script>
 
 <template>
-  <div class="">
+  <div class="relative">
     <button
       @click="toggleCreatingNewItem"
       class="size-10 rounded-full transition-all duration-500 grid place-items-center relative bg-black"
@@ -21,7 +20,7 @@ const closeMenu: () => void = () => (isCreatingNewItem.value = false);
         :class="isCreatingNewItem ? 'rotate-45' : 'rotate-0'"
         class="transition-all duration-100"
       >
-        <Plus class="stroke-white size-4 md:size-5" stroke-width="3" />
+        <Plus class="stroke-white size-4 lg:size-5" stroke-width="3" />
       </div>
     </button>
     <DashboardMenuNewItemMenu
