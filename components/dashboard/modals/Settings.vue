@@ -41,14 +41,14 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
       :class="isSendingFeedback ? 'scale-[.96]' : 'scale-100'"
       class="fixed h-screen w-full flex items-center justify-center z-[999] inset-0 transition-transform duration-300"
     >
-      <div
-        class="w-full max-w-sm bg-white rounded-2xl shadow flex flex-col divide-y divide-neutral-100 md:divide-neutral-200"
-      >
+      <div class="w-full max-w-sm c_container">
         <button
           :disabled="isSendingFeedback"
           class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-200"
           :class="
-            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback
+              ? 'bg-neutral-300 grayscale'
+              : 'hover:bg-neutral-100'
           "
         >
           <div>
@@ -60,7 +60,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
           :disabled="isSendingFeedback"
           class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-200"
           :class="
-            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback
+              ? 'bg-neutral-300 grayscale'
+              : 'hover:bg-neutral-100'
           "
         >
           <div>
@@ -72,7 +74,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
           :disabled="isSendingFeedback"
           class="w-full h-16 px-5 flex items-center gap-5 text-lg transition-all duration-200"
           :class="
-            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback
+              ? 'bg-neutral-300 grayscale'
+              : 'hover:bg-neutral-100'
           "
         >
           <div>
@@ -86,7 +90,7 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
             class="w-full h-16 flex items-center gap-5 text-lg absolute left-2/4 -translate-x-1/2 transition-all duration-300"
             :class="
               isSendingFeedback
-                ? 'scale-[1.06] -translate-y-10 bg-white rounded-t-2xl'
+                ? 'scale-[1.06] w-[110%] border border-neutral-300 -translate-y-10 bg-white rounded-t-2xl'
                 : ' scale-100 -translate-y-0'
             "
           >
@@ -118,7 +122,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
           :disabled="isSendingFeedback"
           class="w-full h-16 px-5 flex items-center justify-between text-lg transition-all duration-200 rounded-b-2xl"
           :class="
-            isSendingFeedback ? 'bg-neutral-300 grayscale' : 'hover:bg-neutral-100'
+            isSendingFeedback
+              ? 'bg-neutral-300 grayscale'
+              : 'hover:bg-neutral-100'
           "
         >
           <div class="flex items-center gap-5">

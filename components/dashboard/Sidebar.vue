@@ -34,7 +34,7 @@ const toggleTheme = () => {
 
 <template>
   <div
-    class="col-span-1 w-[4rem] h-full border-r border-neutral-200/60 md:flex flex-col items-center justify-end shrink-0 hidden"
+    class="col-span-1 w-[4rem] h-screen fixed bg-white z-[100] top-0 left-0 border-r border-neutral-200/60 md:flex flex-col items-center justify-end shrink-0 hidden"
   >
     <div class="w-full h-1/4"></div>
 
@@ -43,56 +43,56 @@ const toggleTheme = () => {
     >
       <button class="size-10 group/button grid place-items-center">
         <ListTodo
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Book
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Link
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Notebook
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Twitter
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Image
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Palette
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
       </button>
       <button class="size-10 group/button grid place-items-center">
         <Asterisk
-          :size="24"
+          :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
@@ -103,8 +103,8 @@ const toggleTheme = () => {
         class="group/button relative bg-white size-10 rounded-full grid place-items-center"
         @click="toggleTheme"
       >
-        <Moon v-if="theme === 'dark'" :size="24" class="stroke-blue-600" />
-        <Sun v-else :size="24" class="stroke-yellow-500" />
+        <Moon v-if="theme === 'dark'" :size="22" class="stroke-blue-600" />
+        <Sun v-else :size="22" class="stroke-yellow-500" />
       </button>
       <!-- <div class="relative">
         <button
@@ -113,7 +113,7 @@ const toggleTheme = () => {
           :class="isHelpMenuOpen ? 'shadow z-[999]' : 'shadow-none '"
         >
           <CircleHelp
-            :size="24"
+            :size="22"
             class="stroke-neutral-800 group-hover/button:stroke-black"
           />
         </button>
@@ -129,7 +129,7 @@ const toggleTheme = () => {
           :class="isUserMenuOpen ? 'shadow z-[999]' : 'shadow-none '"
         >
           <User
-            :size="24"
+            :size="22"
             class="stroke-neutral-800 group-hover/button:stroke-black"
           />
         </button>

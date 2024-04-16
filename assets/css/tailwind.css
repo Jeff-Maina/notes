@@ -44,6 +44,10 @@ body {
   @apply w-full h-screen bg-black/0 fixed inset-0 z-[998];
 }
 
+.c_container {
+  @apply border border-neutral-300 divide-y divide-neutral-100 md:divide-neutral-200 rounded-3xl;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

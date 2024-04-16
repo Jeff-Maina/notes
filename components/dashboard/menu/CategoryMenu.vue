@@ -68,8 +68,8 @@ const emits = defineEmits(["toggleMenu"]);
   <Transition name="menu_slide">
     <div
       v-if="isCategoryMenuShowing"
-      class="absolute rounded-3xl top-[120%] right-0 flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 text-sm md:text-base menu z-[999] transition-all duration-350"
-      :class="anyCategoryClicked() ? 'scale-[.96]' : 'scale-100 bg-white'"
+      class="absolute top-[120%] c_container right-0 text-sm md:text-base menu z-[999] transition-all duration-350"
+      :class="anyCategoryClicked() ? 'scale-[.96] !border !border-neutral-400' : 'scale-100 bg-white'"
     >
       <div
         v-for="(category, index) in categories"
@@ -92,8 +92,8 @@ const emits = defineEmits(["toggleMenu"]);
             !anyCategoryClicked()
               ? ' scale-100 shadow-none z-10 translate-y-0 rounded-t-3xl'
               : isThisCategoryClicked(index)
-              ? 'bg-white shadow -translate-y-2  z-20 scale-[1.07] rounded-t-3xl'
-              : 'translate-y-0 bg-neutral-300',
+              ? 'bg-white shadow -translate-y-2  z-20 scale-[1.07] border border-neutral-300 rounded-t-3xl'
+              : 'translate-y-0 bg-neutral-100 ',
           ]"
         >
           <button
@@ -128,10 +128,10 @@ const emits = defineEmits(["toggleMenu"]);
             </div>
           </button>
           <div
-            class="absolute top-full w-full bg-white left-0 z-0 rounded-b-3xl custom_transition overflow-hidden border-t flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 tags_box"
+            class="absolute top-full w-[100.5%] bg-white -left-[1px] z-0 rounded-b-3xl custom_transition overflow-hidden border flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 tags_box"
             :class="
               isThisCategoryClicked(index)
-                ? ` max-h-[14rem] overflow-scroll border-neutral-100 md:border-neutral-300 opacity-1 `
+                ? ` max-h-[14rem] overflow-scroll border-neutral-300 md:border-neutral-300 opacity-1 `
                 : 'max-h-0 border-none overflow-hidden -translate-y-[10px]'
             "
           >
@@ -167,11 +167,11 @@ const emits = defineEmits(["toggleMenu"]);
 }
 
 .custom_transition {
-  transition: all 350ms ease;
+  transition: all 250ms ease;
 }
 
 .duration-350 {
-  transition-duration: 350ms;
+  transition-duration: 250ms;
 }
 
 .tags_box {
