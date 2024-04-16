@@ -19,7 +19,7 @@ const updateColor = (color: string) => (folderColor.value = color);
 
     <!-- folder thing -->
     <div
-      class="w-72 md:w-full max-w-md rounded-[2rem] md:rounded-[3rem] h-[11rem] md:h-64 relative z-[999] overflow-hidden group/folder"
+      class="w-72 md:w-full max-w-[25rem] rounded-[2rem] md:rounded-[3rem] h-[11rem] md:h-64 relative z-[999] overflow-hidden group/folder"
       :class="folderColor"
     >
       <div class="w-full h-full flex items-center justify-center">
@@ -61,10 +61,8 @@ const updateColor = (color: string) => (folderColor.value = color);
     </div>
 
     <!-- description and create -->
-    <div class="shadow rounded-3xl overflow-hidden">
-      <div
-        class="w-full h-20 rounded-t-3xl bg-white border-b border-neutral-100 md:border-neutral-200 overflow-hidden"
-      >
+    <div class="rounded-3xl overflow-hidden">
+      <div class="w-full h-20 rounded-t-3xl bg-white overflow-hidden">
         <textarea
           class="w-full h-full p-5 resize-none text-neutral-800 placeholder:text-neutral-500"
           placeholder="Enter description"
@@ -72,21 +70,11 @@ const updateColor = (color: string) => (folderColor.value = color);
       </div>
 
       <!-- create button -->
-      <div
-        class="flex flex-col rounded-b-3xl overflow-hidden w-full divide-y divide-neutral-100 md:divide-neutral-200"
-      >
-        <div
-          class="h-14 w-full bg-white rounded- grid grid-cols-2 divide-x divide-neutral-100 md:divide-neutral-200"
-        >
-          <div class="h-full w-full flex items-center justify-center"></div>
-          <div class="h-full w-full flex items-center justify-center">
-            <button
-              :disabled="true"
-              class="w-full h-full grid place-items-center bg-neutral-800 text-white disabled:bg-neutral-600"
-            >
-              Create
-            </button>
-          </div>
+      <div class="flex flex-col rounded-b-3xl overflow-hidden w-full">
+        <div class="h-14 w-full bg-white flex justify-end items-center px-2">
+          <button class="p-2 bg-neutral-800 grid place-items-center text-white px-6 rounded-full shadow-inner">
+            Create
+          </button>
         </div>
       </div>
     </div>
@@ -100,13 +88,19 @@ const updateColor = (color: string) => (folderColor.value = color);
         class="h-10 grid place-items-center"
       >
         <div
-          :class="folderColor == 'blackf' && 'ring-4 ring-offset-2 ring-neutral-500 scale-[.80]'"
+          :class="
+            folderColor == 'blackf' &&
+            'ring-4 ring-offset-2 ring-neutral-500 scale-[.80]'
+          "
           class="size-4 rounded-full bg-black transition-all duration-150"
         ></div>
       </button>
       <button @click="updateColor('redf')" class="h-10 grid place-items-center">
         <div
-          :class="folderColor == 'redf' && 'ring-4 ring-offset-2 ring-red-500 scale-[.80]'"
+          :class="
+            folderColor == 'redf' &&
+            'ring-4 ring-offset-2 ring-red-500 scale-[.80]'
+          "
           class="size-4 rounded-full bg-red-500 transition-all duration-150"
         ></div>
       </button>
@@ -114,8 +108,11 @@ const updateColor = (color: string) => (folderColor.value = color);
         @click="updateColor('pinkf')"
         class="h-10 grid place-items-center"
       >
-      <div
-          :class="folderColor == 'pinkf' && 'ring-4 ring-offset-2 ring-pink-500 scale-[.80]'"
+        <div
+          :class="
+            folderColor == 'pinkf' &&
+            'ring-4 ring-offset-2 ring-pink-500 scale-[.80]'
+          "
           class="size-4 rounded-full bg-pink-500 transition-all duration-150"
         ></div>
       </button>
@@ -123,8 +120,11 @@ const updateColor = (color: string) => (folderColor.value = color);
         @click="updateColor('bluef')"
         class="h-10 grid place-items-center"
       >
-      <div
-          :class="folderColor == 'bluef' && 'ring-4 ring-offset-2 ring-blue-500 scale-[.80]'"
+        <div
+          :class="
+            folderColor == 'bluef' &&
+            'ring-4 ring-offset-2 ring-blue-500 scale-[.80]'
+          "
           class="size-4 rounded-full bg-blue-500 transition-all duration-150"
         ></div>
       </button>

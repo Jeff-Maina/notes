@@ -39,7 +39,7 @@ const emits = defineEmits(["toggleHelpMenu"]);
   <Transition name="menu_slide">
     <div
       v-if="isHelpMenuOpen"
-      class="absolute left-full bottom-full bg-white rounded-3xl flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 w-64 shadow transition-transform duration-350 z-[999] overflow-hidden"
+      class="absolute left-full bottom-full bg-white rounded-3xl flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 w-52 shadow transition-transform duration-350 z-[999] overflow-hidden"
     >
       <button
         class="w-full flex items-center justify-between px-5 h-14 hover:bg-neutral-100 transition-colors duration-100"

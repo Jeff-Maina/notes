@@ -68,7 +68,7 @@ const emits = defineEmits(["toggleMenu"]);
   <Transition name="menu_slide">
     <div
       v-if="isCategoryMenuShowing"
-      class="absolute rounded-3xl top-[150%] right-0 flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 shadow text-sm md:text-base menu z-[999] transition-transform duration-350"
+      class="absolute rounded-3xl top-[120%] right-0 flex flex-col divide-y divide-neutral-100 md:divide-neutral-200 text-sm md:text-base menu z-[999] transition-all duration-350"
       :class="anyCategoryClicked() ? 'scale-[.96]' : 'scale-100 bg-white'"
     >
       <div
@@ -177,4 +177,5 @@ const emits = defineEmits(["toggleMenu"]);
 .tags_box {
   scrollbar-width: thin;
 }
+
 </style>
