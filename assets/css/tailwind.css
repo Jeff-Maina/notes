@@ -156,6 +156,16 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.modal_scale-enter-from,
+.modal_scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.modal_scale-enter-active,
+.modal_scale-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
 /** common styles */
 
 .b_container {
