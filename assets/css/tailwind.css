@@ -41,7 +41,7 @@ body {
 }
 
 .mask {
-  @apply w-full h-screen bg-black/0 fixed inset-0 z-[998];
+  @apply w-full h-screen bg-black/10 fixed inset-0 z-[998];
 }
 
 .c_container {

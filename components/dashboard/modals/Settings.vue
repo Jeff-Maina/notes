@@ -39,9 +39,9 @@ const closeFeedbackForm = () => (isSendingFeedback.value = false);
       @click.self="[$emit('toggleSettingsModal'), closeFeedbackForm()]"
       v-if="isSettingsModalActive"
       :class="isSendingFeedback ? 'scale-[.96]' : 'scale-100'"
-      class="fixed h-screen w-full flex items-center justify-center z-[999] inset-0 transition-transform duration-300"
+       class="fixed h-screen w-full flex items-center justify-center z-[999] inset-0 transition-transform duration-300 "
     >
-      <div class="w-full max-w-sm c_container">
+      <div class="w-full max-w-sm c_container bg-white">
         <button
           :disabled="isSendingFeedback"
           class="w-full h-16 px-5 flex items-center gap-5 text-lg rounded-t-2xl hover:bg-neutral-100 duration-200"
