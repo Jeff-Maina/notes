@@ -69,7 +69,7 @@ const dismissReaction = () => {
           />
         </div>
 
-        <div class="h-20 w-full px-5 flex items-center justify-between">
+        <div class="h-16 w-full px-5 flex items-center justify-between">
           <div class="flex items-center group/link cursor-pointer gap-3">
             <div class="flex items-center gap-3">
               <div class="size-5 bg-black rounded-full"></div>
@@ -88,18 +88,11 @@ const dismissReaction = () => {
           </div>
           <div class="relative">
             <!-- link menu -->
-            <Transition name="menu_scale">
+            <!-- <Transition name="menu_scale">
               <div
                 v-if="isMenuOpen"
                 class="absolute w-40 border border-neutral-300 right-0 bottom-full bg-white c_container !rounded-xl overflow-hidden z-[999] origin-bottom-right"
               >
-                <button
-                  @click="[closeMenu(), viewDetails()]"
-                  class="h-12 w-full px-4 text-start flex items-center gap-3 hover:bg-neutral-100 transition-all duration-200"
-                >
-                  <Info :size="14" />
-                  Details
-                </button>
                 <button
                   @click="[closeMenu(), deleteLink()]"
                   class="h-12 w-full px-4 text-start flex items-center gap-3 hover:text-red-500 transition-all duration-200"
@@ -108,7 +101,7 @@ const dismissReaction = () => {
                   Delete
                 </button>
               </div>
-            </Transition>
+            </Transition> -->
 
             <!-- mask -->
             <div
@@ -117,9 +110,9 @@ const dismissReaction = () => {
               class="fixed top-0 left-0 w-full h-screen z-[998]"
             ></div>
 
-            <button @click="openMenu">
+            <!-- <button @click="openMenu">
               <Ellipsis class="stroke-neutral-700" />
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -216,6 +209,7 @@ const dismissReaction = () => {
       </div>
     </div>
   </Transition>
+  
 </template>
 
 <style></style>

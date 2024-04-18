@@ -48,7 +48,11 @@ const closeCategoryMenu = () => (isCategoryMenuShowing.value = false);
             <DashboardCardsThoughtCard />
             <DashboardCardsNotesCard />
           </div>
-          <div class="w-full col-span-1"></div>
+          <div class="w-full col-span-1 flex flex-col gap-4">
+            <DashboardCardsTweetCard />
+            <DashboardCardsColorCard />
+            <DashboardCardsLinkCard />
+          </div>
         </section>
       </div>
     </section>

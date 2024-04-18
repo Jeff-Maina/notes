@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Heart } from "lucide-vue-next";
 const props = defineProps({
   x: {
     type: Number || undefined,
@@ -14,7 +15,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="absolute bg-white border border-neutral-300/70 flex rounded-full overflow-hidden divide-x z-[999] reaction_div"
+    class="absolute bg-white border border-neutral-300/70 flex rounded-full overflow-hidden z-[999] reaction_div"
     :class="isReacting ? 'scale-1 opacity-1' : 'scale-0 opacity-0'"
     :style="{
       top: y !== undefined ? y - 50 + 'px' : 0,
@@ -23,32 +24,34 @@ const props = defineProps({
   >
     <button
       @click="[$emit('setType', 'heart'), $emit('dismissReaction')]"
-      class="size-10 grid place-items-center hover:bg-neutral-100"
+      class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
-      <p>❤️</p></button
+      <p class="">
+        <Heart :size="20" class="stroke-red-500 fill-red-500" />
+      </p></button
     ><button
       @click="[$emit('setType', 'star'), $emit('dismissReaction')]"
-      class="size-10 grid place-items-center hover:bg-neutral-100"
+      class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>⭐</p></button
     ><button
       @click="[$emit('setType', 'pin'), $emit('dismissReaction')]"
-      class="size-10 grid place-items-center hover:bg-neutral-100"
+      class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>📌</p></button
     ><button
       @click="[$emit('setType', 'idea'), $emit('dismissReaction')]"
-      class="size-10 grid place-items-center hover:bg-neutral-100"
+      class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>💡</p></button
     ><button
       @click="[$emit('setType', 'target'), $emit('dismissReaction')]"
-      class="size-10 grid place-items-center hover:bg-neutral-100"
+      class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>🎯</p></button
     ><button
       @click="[$emit('setType', 'hot'), $emit('dismissReaction')]"
-      class="size-10 grid place-items-center hover:bg-neutral-100"
+      class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>🔥</p>
     </button>

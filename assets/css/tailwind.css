@@ -35,6 +35,13 @@ body {
   font-family: "Gelion Regular";
 }
 
+ol {
+  font-family: "Gelion Regular" !important;
+  background: #000 !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
 *::selection {
   background: #dfdfdf;
   color: #000;
