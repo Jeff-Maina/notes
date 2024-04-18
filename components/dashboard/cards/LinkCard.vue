@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Ellipsis, ArrowUpRight, Trash, Info, X, Edit } from "lucide-vue-next";
 
-const type = ref("pin");
+const type = ref("");
+const setType = (value: string) => (type.value = value);
+const removeReaction = () => (type.value = "");
 
 const isMenuOpen = ref(false);
 const openMenu = () => (isMenuOpen.value = true);
@@ -15,73 +17,110 @@ const dismissDetails = () => (isViewingDetails.value = false);
 const isDeletingLink = ref(false);
 const deleteLink = () => (isDeletingLink.value = true);
 const dismissDelete = () => (isDeletingLink.value = false);
+
+const isReacting = ref(false);
+const x = ref(0);
+const y = ref(0);
+const card = ref(null);
+
+const showReaction = (e: MouseEvent) => {
+  if (!card.value) return;
+  const bounds = (card.value as HTMLElement).getBoundingClientRect();
+  const { top, left } = bounds;
+  const { clientX, clientY } = e;
+
+  const xPos = clientX - left;
+  const yPos = clientY - top;
+
+  x.value = xPos;
+  y.value = yPos;
+
+  isReacting.value = true;
+  console.log(xPos, yPos);
+};
+
+const dismissReaction = () => {
+  isReacting.value = false;
+};
 </script>
 
 <template>
-  <div
-    class="w-full border border-neutral-300/60 relative group/linkcard rounded-3xl"
-  >
-    <Reaction type="heart" />
-    <div class="w-full overflow-hidden rounded-3xl">
-      <div class="w-full h-72">
-        <img
-          src="https://i.pinimg.com/564x/a5/71/1a/a5711a9ff4b107f56a6023b4cdb67a62.jpg"
-          class="w-full h-full object-cover"
-          alt=""
-        />
-      </div>
-
-      <div class="h-20 w-full px-5 flex items-center justify-between">
-        <div class="flex items-center group/link cursor-pointer gap-3">
-          <div class="flex items-center gap-3">
-            <div class="size-5 bg-black rounded-full"></div>
-            <a
-              href=""
-              class="text-lg md:text-xl underline underline-offset-4 decoration-neutral-300 transition-all duration-200 group-hover/link:decoration-black"
-              >Amazon.com</a
-            >
-          </div>
-          <div>
-            <ArrowUpRight
-              :size="16"
-              class="translate-y-1 opacity-0 -translate-x-1 group-hover/link:translate-x-0 group-hover/link:-translate-y-0 group-hover/link:opacity-[1] transition-all duration-300"
-            />
-          </div>
+  <div class="relative">
+    <ReactionBar
+      @dismissReaction="dismissReaction"
+      @setType="setType"
+      :type="type"
+      :x="x"
+      :y="y"
+      :isReacting="isReacting"
+    />
+    <div
+      @dblclick="showReaction"
+      ref="card"
+      class="w-full border border-neutral-300/60 relative group/linkcard rounded-3xl"
+    >
+      <Reaction :type="type" @removeReaction="removeReaction" />
+      <div class="w-full overflow-hidden rounded-3xl">
+        <div class="w-full h-72">
+          <img
+            src="https://i.pinimg.com/564x/a5/71/1a/a5711a9ff4b107f56a6023b4cdb67a62.jpg"
+            class="w-full h-full object-cover"
+            alt=""
+          />
         </div>
-        <div class="relative">
-          <!-- link menu -->
-          <Transition name="menu_scale">
+
+        <div class="h-20 w-full px-5 flex items-center justify-between">
+          <div class="flex items-center group/link cursor-pointer gap-3">
+            <div class="flex items-center gap-3">
+              <div class="size-5 bg-black rounded-full"></div>
+              <a
+                href=""
+                class="text-lg md:text-xl underline underline-offset-4 decoration-neutral-300 transition-all duration-200 group-hover/link:decoration-black"
+                >Amazon.com</a
+              >
+            </div>
+            <div>
+              <ArrowUpRight
+                :size="16"
+                class="translate-y-1 opacity-0 -translate-x-1 group-hover/link:translate-x-0 group-hover/link:-translate-y-0 group-hover/link:opacity-[1] transition-all duration-300"
+              />
+            </div>
+          </div>
+          <div class="relative">
+            <!-- link menu -->
+            <Transition name="menu_scale">
+              <div
+                v-if="isMenuOpen"
+                class="absolute w-40 border border-neutral-300 right-0 bottom-full bg-white c_container !rounded-xl overflow-hidden z-[999] origin-bottom-right"
+              >
+                <button
+                  @click="[closeMenu(), viewDetails()]"
+                  class="h-12 w-full px-4 text-start flex items-center gap-3 hover:bg-neutral-100 transition-all duration-200"
+                >
+                  <Info :size="14" />
+                  Details
+                </button>
+                <button
+                  @click="[closeMenu(), deleteLink()]"
+                  class="h-12 w-full px-4 text-start flex items-center gap-3 hover:text-red-500 transition-all duration-200"
+                >
+                  <Trash :size="14" />
+                  Delete
+                </button>
+              </div>
+            </Transition>
+
+            <!-- mask -->
             <div
               v-if="isMenuOpen"
-              class="absolute w-40 border border-neutral-300 right-0 bottom-full bg-white c_container !rounded-xl overflow-hidden z-[999] origin-bottom-right"
-            >
-              <button
-                @click="[closeMenu(), viewDetails()]"
-                class="h-12 w-full px-4 text-start flex items-center gap-3 hover:bg-neutral-100 transition-all duration-200"
-              >
-                <Info :size="14" />
-                Details
-              </button>
-              <button
-                @click="[closeMenu(), deleteLink()]"
-                class="h-12 w-full px-4 text-start flex items-center gap-3 hover:text-red-500 transition-all duration-200"
-              >
-                <Trash :size="14" />
-                Delete
-              </button>
-            </div>
-          </Transition>
+              @click="closeMenu"
+              class="fixed top-0 left-0 w-full h-screen z-[998]"
+            ></div>
 
-          <!-- mask -->
-          <div
-            v-if="isMenuOpen"
-            @click="closeMenu"
-            class="fixed top-0 left-0 w-full h-screen z-[998]"
-          ></div>
-
-          <button @click="openMenu">
-            <Ellipsis class="stroke-neutral-700" />
-          </button>
+            <button @click="openMenu">
+              <Ellipsis class="stroke-neutral-700" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
