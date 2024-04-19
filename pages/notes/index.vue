@@ -18,6 +18,35 @@ const toggleCategoryMenu = () => {
   isCategoryMenuShowing.value = !isCategoryMenuShowing.value;
 };
 const closeCategoryMenu = () => (isCategoryMenuShowing.value = false);
+
+const Links = [
+  {
+    websiteName: "Interface Icon Pack",
+    websiteLink: "https://www.google.com",
+    websiteFavicon: "https://www.google.com/favicon.ico",
+    websiteImage:
+      "https://i.pinimg.com/564x/87/a7/85/87a785a21802e6ccca1eec849ee21b05.jpg",
+  },
+  {
+    websiteName: "Zajno | Crappy explanation",
+    websiteLink: "https://zajno.com/work/crappy-explanation",
+    websiteFavicon: "https://github.com/favicon.ico",
+    websiteImage:
+      "https://i.pinimg.com/564x/d2/1f/6b/d21f6baebb089ec004b59ecc3660958f.jpg",
+  },
+  {
+    websiteName: "INSPIRATION by TOPPAN | INTERZUM 2017",
+    websiteLink: "https://forest.toppan.co.jp/gdi/",
+    websiteFavicon: "https://www.youtube.com/favicon.ico",
+    websiteImage: "https://www.youtube.com/img/favicon_144.png",
+  },
+  {
+    websiteName: "Michal Zalobny Portfolio 2021",
+    websiteLink: "https://michalzalobny.com/",
+    websiteFavicon: "https://twitter.com/favicon.ico",
+    websiteImage: "https://i.pinimg.com/736x/65/f6/4d/65f64dedbf1226feef7978ea2c9babc9.jpg",
+  },
+];
 </script>
 
 <template>
@@ -31,13 +60,18 @@ const closeCategoryMenu = () => (isCategoryMenuShowing.value = false);
         <section class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
           <div class="w-full col-span-1 flex flex-col gap-4">
             <!-- link -->
-            <DashboardCardsLinkCard />
+
+            <DashboardCardsLinkCard
+              v-for="(link, index) in Links"
+              :key="index"
+              :linkDetails="link"
+            />
             <!-- colors -->
-            <DashboardCardsColorCard />
+            <!-- <DashboardCardsColorCard /> -->
             <!-- todo -->
-            <DashboardCardsTodoCard />
+            <!-- <DashboardCardsTodoCard /> -->
             <!-- image -->
-            <DashboardCardsImageCard />
+            <!-- <DashboardCardsImageCard /> -->
             <!-- codeblock -->
           </div>
           <div class="w-full col-span-1 flex flex-col gap-4">

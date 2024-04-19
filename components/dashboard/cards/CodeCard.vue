@@ -33,7 +33,7 @@ print(data)
 
 <template>
   <div
-    class="w-full rounded-xl codecard bg-[#fff] border border-neutral-300/60 relative group/codecard overflow-hidden pr-3 p-3"
+    class="w-full rounded-xl -z-10 bg-[#fff] border border-neutral-300/60 relative group/codecard overflow-hidden pr-3 p-3"
   >
     <button
       class="size-8 absolute top-3 right-3 bg-neutral-100 border border-neutral-200 z-30 rounded-lg opacity-0 group-hover/codecard:opacity-[1] transition-all duration-200 grid place-items-center"
@@ -43,8 +43,7 @@ print(data)
     <Shiki
       lang="python"
       :code="code"
-      class="px-3 py-1 !text-sm w-full overflow-scroll shiki_block"
-      hight
+      class="px-3 py-1 !text-sm w-full overflow-scroll shiki_block !z-10"
     />
   </div>
 </template>
@@ -66,3 +65,5 @@ print(data)
 </style>
 
 <!-- 'catppuccin-latte' - [#EFF1F5]-->
+
+<!-- this component renders on top of othes for some reason -->

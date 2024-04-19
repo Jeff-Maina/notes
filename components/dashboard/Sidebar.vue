@@ -7,7 +7,7 @@ import {
   CircleHelp,
   Asterisk,
   Notebook,
-  Link,
+  Bookmark,
   Book,
   Palette,
   Image,
@@ -58,7 +58,7 @@ const toggleTheme = () => {
         <Tooltip label="Thought" />
       </button>
       <button class="size-10 group/button grid place-items-center relative">
-        <Link
+        <Bookmark
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"

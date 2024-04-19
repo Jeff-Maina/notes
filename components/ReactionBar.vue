@@ -15,7 +15,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="absolute bg-white border border-neutral-300/70 flex rounded-full overflow-hidden z-[999] reaction_div"
+    class="absolute bg-white border border-neutral-300/70 flex rounded-full overflow-hidden z-[9999999] reaction_div"
     :class="isReacting ? 'scale-1 opacity-1' : 'scale-0 opacity-0'"
     :style="{
       top: y !== undefined ? y - 50 + 'px' : 0,
@@ -61,7 +61,7 @@ const props = defineProps({
   <div
     v-if="isReacting"
     @click="$emit('dismissReaction')"
-    class="fixed top-0 left-0 w-full h-screen z-[998]"
+    class="fixed top-0 left-0 w-full h-screen z-[9998]"
   ></div>
 </template>
 

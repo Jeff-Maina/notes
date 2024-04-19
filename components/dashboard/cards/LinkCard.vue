@@ -1,5 +1,18 @@
 <script setup lang="ts">
-import { Ellipsis, ArrowUpRight, Trash, Info, X, Edit } from "lucide-vue-next";
+import {
+  Ellipsis,
+  ArrowUpRight,
+  Trash,
+  Info,
+  X,
+  Edit,
+  Link,
+  Bookmark,
+  Tag,
+  Check,
+  Search,
+  Clipboard,
+} from "lucide-vue-next";
 
 const type = ref("");
 const setType = (value: string) => (type.value = value);
@@ -14,9 +27,54 @@ const isViewingDetails = ref(false);
 const viewDetails = () => (isViewingDetails.value = true);
 const dismissDetails = () => (isViewingDetails.value = false);
 
+// deleting link
 const isDeletingLink = ref(false);
+const isProcessingDelete = ref(false);
 const deleteLink = () => (isDeletingLink.value = true);
 const dismissDelete = () => (isDeletingLink.value = false);
+
+const confirmDelete = () => {
+  isProcessingDelete.value = true;
+};
+
+// adding tags;
+const tag = ref("");
+const newTag = ref("");
+const tags = ref<string[]>([]);
+const isAddingTag = ref(false);
+const toggleTagMenu = () => {
+  isAddingTag.value = !isAddingTag.value;
+  document.body.style.overflow = "hidden";
+};
+
+const dismissTag = () => {
+  isAddingTag.value = false;
+  document.body.style.overflow = "auto";
+};
+const hasConfirmedTag = ref(false);
+
+const confirmTag = () => {
+  tags.value.push(newTag.value);
+  newTag.value = "";
+  dismissTag();
+};
+
+const removeTag = (value: string) => {
+  const newTags = tags.value.filter((t) => t !== value);
+  tags.value = newTags;
+};
+
+// copying the link;
+const hasCopiedLink = ref(false);
+const copyLink = () => {
+  hasCopiedLink.value = true;
+
+  setTimeout(() => {
+    hasCopiedLink.value = false;
+  }, 2000);
+};
+
+// Reaction logic
 
 const isReacting = ref(false);
 const x = ref(0);
@@ -42,10 +100,27 @@ const showReaction = (e: MouseEvent) => {
 const dismissReaction = () => {
   isReacting.value = false;
 };
+
+type linkdetails = {
+  websiteLink: string;
+  websiteName: string;
+  websiteFavicon: string;
+  websiteImage: string;
+};
+
+const props = defineProps({
+  linkDetails: {
+    type: Object as () => linkdetails,
+  },
+});
+
+const showImage = ref(true);
+const hideImage = () => (showImage.value = false);
 </script>
 
 <template>
-  <div class="relative">
+  <!-- link card -->
+  <div class="relative group/linkcard" :class="isAddingTag ? 'z-[999]' : 'z-0'">
     <ReactionBar
       @dismissReaction="dismissReaction"
       @setType="setType"
@@ -55,161 +130,215 @@ const dismissReaction = () => {
       :isReacting="isReacting"
     />
     <div
+      class="absolute top-3 right-3 flex gap-1 items-center opacity-[0] group-hover/linkcard:opacity-[1] z-20 transition-all duration-300"
+    >
+      <!-- tags -->
+      <div
+        class="h-7 rounded-full bg-black/70 hover:bg-black backdrop-blur-sm z-20 text-white flex items-center transition-all duration-200"
+      >
+        <!-- list all tags -->
+        <button
+          @click="toggleTagMenu"
+          :disabled="isProcessingDelete"
+          class="flex items-center h-full"
+        >
+          <div class="size-7 grid place-items-center">
+            <Tag :size="12" stroke-width="3" />
+          </div>
+
+          <div
+            v-if="tags.length > 0"
+            class="pr-3 text-sm font-medium flex items-center pb-[2px] gap-1 -translate-x-[2px]"
+          >
+            <TransitionGroup name="list">
+              <p
+                v-for="(tag, index) in tags"
+                :key="index"
+                class="max-w-20 truncate"
+              >
+                {{ tag }}
+                <span v-if="index !== tags.length - 1">,</span>
+              </p>
+            </TransitionGroup>
+          </div>
+        </button>
+
+        <!-- add tags menu -->
+        <Transition name="add_tag">
+          <div
+            v-if="isAddingTag"
+            class="absolute top-[110%] right-0 w-52 rounded-2xl bg-black/70 backdrop-blur-lg origin-top-right overflow-hidden flex flex-col divide-y divide-white/20 z-[999]"
+          >
+            <div class="w-full flex items-center px-4 gap-2">
+              <Search
+                :size="14"
+                stroke-width="3"
+                class="shrink-0 stroke-slate-300"
+              />
+              <input
+                type="text"
+                placeholder="Enter or create tag"
+                v-model="newTag"
+                class="bg-transparent w-full py-2 border-none outline-none"
+              />
+            </div>
+
+            <!-- existing tags div -->
+            <div class="flex flex-col divide-y divide-white/10">
+              <TransitionGroup name="list" tag="ul">
+                <button
+                  v-for="(tag, index) in tags"
+                  :key="index"
+                  class="p-3 hover:bg-black/30 px-4 flex items-center justify-between w-full"
+                >
+                  <div class="flex items-center gap-3">
+                    <Tag :size="14" stroke-width="3" class="shrink-0" />
+                    <p class="truncate max-w-32">{{ tag }}</p>
+                  </div>
+                  <button
+                    @click="removeTag(tag)"
+                    class="grid place-content-center shrink-0"
+                  >
+                    <X
+                      :size="14"
+                      stroke-width="3"
+                      class="hover:stroke-red-500"
+                    />
+                  </button>
+                </button>
+              </TransitionGroup>
+            </div>
+
+            <!-- add new tag -->
+            <button
+              v-if="newTag !== ''"
+              @click="confirmTag"
+              class="p-3 hover:bg-black/30 px-4 flex items-center gap-3 py-2"
+            >
+              <Tag :size="14" stroke-width="3" class="shrink-0" />
+              <p class="truncate">{{ newTag }}</p>
+            </button>
+          </div>
+        </Transition>
+      </div>
+      <!-- copy link -->
+      <div class="group/btn_hover">
+        <Minitooltip :label="hasCopiedLink ? 'copied' : 'copy'" />
+        <button
+          @click="copyLink"
+          class="size-7 bg-black/70 hover:bg-black rounded-full grid place-items-center backdrop-blur-sm group/copybtn"
+        >
+          <Clipboard
+            v-if="!hasCopiedLink"
+            class="text-white group-hover/copybtn:text-blue-500"
+            :size="12"
+            stroke-width="3"
+          />
+          <Check v-else :size="12" class="text-green-500" stroke-width="3" />
+        </button>
+      </div>
+      <!-- delete link btn -->
+      <div
+        @click="deleteLink"
+        class="h-7 rounded-full grid place-items-center bg-black/70 hover:bg-black backdrop-blur-sm z-20 text-white hover:text-red-500 transition-all duration-200"
+      >
+        <button class="size-7 grid place-items-center">
+          <Trash :size="12" stroke-width="3" />
+        </button>
+        <!-- confirm delete btn -->
+        <Transition name="confirm_delete">
+          <button
+            :disabled="!isDeletingLink"
+            v-if="isDeletingLink"
+            @click="confirmDelete"
+            class="absolute right-0 top-0 bg-red-900 rounded-full leading-none grid place-items-center h-7 text-white font-semibold z-20 origin-right overflow-hidden transition-all duration-200"
+            :class="isProcessingDelete ? 'w-7 px-0' : 'w-20 pb-[2px] px-3'"
+          >
+            <span v-if="!isProcessingDelete">confirm</span>
+            <span
+              v-else
+              class="size-3 border-2 border-white border-t-transparent rounded-full animate-spin"
+            ></span>
+          </button>
+        </Transition>
+      </div>
+    </div>
+    <div
       @dblclick="showReaction"
       ref="card"
-      class="w-full border border-neutral-300/60 relative group/linkcard rounded-3xl"
+      class="w-full border transition-all duration-150 relative rounded-xl bg-white group/lin"
     >
       <Reaction :type="type" @removeReaction="removeReaction" />
-      <div class="w-full overflow-hidden rounded-3xl">
-        <div class="w-full h-72">
+      <div class="w-full overflow-hidden rounded-xl">
+        <div class="w-full h-52 bg-neutral-200">
           <img
-            src="https://i.pinimg.com/564x/a5/71/1a/a5711a9ff4b107f56a6023b4cdb67a62.jpg"
+            :src="linkDetails?.websiteImage"
             class="w-full h-full object-cover"
             alt=""
           />
         </div>
 
         <div class="h-16 w-full px-5 flex items-center justify-between">
-          <div class="flex items-center group/link cursor-pointer gap-3">
+          <div class="flex items-center group/link cursor-pointer gap-1">
             <div class="flex items-center gap-3">
-              <div class="size-5 bg-black rounded-full"></div>
+              <div class="size-5 bg-black rounded-full overflow-hidden">
+                <img
+                  :src="linkDetails?.websiteFavicon"
+                  class="w-full h-full"
+                  alt=""
+                />
+              </div>
               <a
                 href=""
-                class="text-lg md:text-xl underline underline-offset-4 decoration-neutral-300 transition-all duration-200 group-hover/link:decoration-black"
-                >Amazon.com</a
+                class="text-lg underline underline-offset-4 decoration-2 decoration-neutral-300 transition-all duration-200 group-hover/link:decoration-black truncate"
+                >{{ linkDetails?.websiteName }}</a
               >
             </div>
-            <div>
-              <ArrowUpRight
-                :size="16"
-                class="translate-y-1 opacity-0 -translate-x-1 group-hover/link:translate-x-0 group-hover/link:-translate-y-0 group-hover/link:opacity-[1] transition-all duration-300"
-              />
-            </div>
-          </div>
-          <div class="relative">
-            <!-- link menu -->
-            <!-- <Transition name="menu_scale">
-              <div
-                v-if="isMenuOpen"
-                class="absolute w-40 border border-neutral-300 right-0 bottom-full bg-white c_container !rounded-xl overflow-hidden z-[999] origin-bottom-right"
-              >
-                <button
-                  @click="[closeMenu(), deleteLink()]"
-                  class="h-12 w-full px-4 text-start flex items-center gap-3 hover:text-red-500 transition-all duration-200"
-                >
-                  <Trash :size="14" />
-                  Delete
-                </button>
-              </div>
-            </Transition> -->
-
-            <!-- mask -->
-            <div
-              v-if="isMenuOpen"
-              @click="closeMenu"
-              class="fixed top-0 left-0 w-full h-screen z-[998]"
-            ></div>
-
-            <!-- <button @click="openMenu">
-              <Ellipsis class="stroke-neutral-700" />
-            </button> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!--! link details -->
-
-  <!-- mask -->
-  <Transition name="fade">
-    <div
-      v-if="isViewingDetails"
-      class="fixed w-screen h-screen z-[998] bg-neutral-950/40 backdrop-blur-sm top-0 left-0 flex items-center justify-center"
-    ></div>
-  </Transition>
-
-  <!-- actual modal -->
-  <Transition name="modal_slide">
-    <div
-      v-if="isViewingDetails"
-      class="fixed w-full h-screen flex items-start pt-32 justify-center z-[999] top-0 left-0"
-    >
-      <div
-        class="w-full h-auto bg-white shadow-lg rounded-3xl flex flex-col max-w-xl relative"
-      >
-        <button
-          @click="dismissDetails"
-          class="absolute bottom-[104%] right-0 ring-[6px] ring-white size-8 shadow grid place-items-center bg-white rounded-full"
-        >
-          <X class="stroke-black" :size="18" stroke-width="3" />
-        </button>
-        <div class="flex flex-col gap-6">
-          <div class="w-full overflow-hidden pt-6 px-6">
-            <img
-              src="https://i.pinimg.com/564x/a5/71/1a/a5711a9ff4b107f56a6023b4cdb67a62.jpg"
-              alt=""
-              class="w-full h-full object-cover rounded-2xl"
-            />
-          </div>
-          <div class="px-6 flex items-start w-full justify-between">
-            <div class="flex flex-col gap-1">
-              <h1 class="text-3xl font-semibold tracking-tight">Color hunt</h1>
-              <div class="flex items-center gap-1">
-                <div class="size-6 bg-black rounded-full"></div>
-                <p class="text-neutral-500 text-xl underline">colourhunt.io</p>
-              </div>
-            </div>
-            <div
-              class="size-10 rounded-full border border-neutral-300/90 grid place-items-center"
-            >
-              🔥
-            </div>
-          </div>
-          <div
-            class="border-t border-neutral-300/60 p-6 flex items-center justify-between"
-          >
-            <p>Added on 10/2/2024.</p>
-            <div class="flex items-center gap-4">
-              <button @click="[dismissDetails(), deleteLink()]">
-                <Trash :size="20" />
-              </button>
-              <button><Edit :size="20" /></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Transition>
-
-  <!--! delete link -->
-
-  <!-- mask -->
-  <Transition name="fade">
-    <div
-      v-if="isDeletingLink"
-      @click="dismissDelete"
-      class="fixed w-screen h-screen z-[998] bg-black/40 top-0 left-0 flex items-center justify-center"
-    ></div>
-  </Transition>
-
-  <!-- actual modal -->
-  <Transition name="modal_scale">
-    <div
-      v-if="isDeletingLink"
-      @click.self="dismissDelete"
-      class="fixed w-full h-screen flex items-center justify-center z-[999] top-0 left-0"
-    >
-      <div
-        class="w-full h-96 bg-white shadow-lg rounded-3xl flex flex-col max-w-xl"
-      >
-        <header class="flex justify-end p-6">
-          <button @click="dismissDelete"><X /></button>
-        </header>
-      </div>
-    </div>
-  </Transition>
-  
+  <!-- render mask to close the add tag menu when user clicks the screen -->
+  <div
+    v-if="isAddingTag"
+    @click="dismissTag"
+    class="fixed inset-0 w-full h-screen z-[998]"
+  ></div>
 </template>
 
-<style></style>
+<style>
+.confirm_delete-enter-from,
+.confirm_delete-leave-to {
+  opacity: 0;
+}
+
+.confirm_delete-enter-active,
+.confirm_delete-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+/* /// */
+
+.add_tag-enter-from,
+.add_tag-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.add_tag-enter-active,
+.add_tag-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* transition groups */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+</style>
