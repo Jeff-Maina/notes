@@ -64,6 +64,12 @@ const showReaction = (e: MouseEvent) => {
 const dismissReaction = () => {
   isReacting.value = false;
 };
+
+// is editing any card;
+const isEditingAnyTask = ref(false);
+const toggleEditingAnyTask = () =>
+  (isEditingAnyTask.value = !isEditingAnyTask.value);
+
 </script>
 
 <template>
@@ -81,7 +87,7 @@ const dismissReaction = () => {
       ref="card"
       class="w-full border border-neutral-300/60 rounded-3xl"
     >
-    <Reaction :type="type" @removeReaction="removeReaction" />
+      <Reaction :type="type" @removeReaction="removeReaction" />
       <header class="p-5 flex flex-col gap-1 border-b">
         <p class="font-medium text-neutral-500 text">10/7/2020</p>
         <p class="md:text-2xl font-semibold tracking-tight">
@@ -91,7 +97,11 @@ const dismissReaction = () => {
       </header>
       <div class="p-5 flex flex-col">
         <div v-for="(task, index) in webDevelopmentTasks" :key="index">
-          <UiTodoItem :task="task.task" />
+          <UiTodoItem
+            :isEditingAnyTask="isEditingAnyTask"
+            @toggleEditingAnyTask="toggleEditingAnyTask"
+            :task="task.task"
+          />
         </div>
       </div>
       <div

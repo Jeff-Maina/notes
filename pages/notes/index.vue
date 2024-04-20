@@ -58,6 +58,13 @@ const rainbowColors = [
   "#4b0082", // Indigo
   "#9400d3", // Violet
 ];
+
+const images = [
+  {
+    isCensored: true,
+    link: "",
+  },
+];
 </script>
 
 <template>
@@ -70,7 +77,7 @@ const rainbowColors = [
         ></header>
         <section class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
           <div class="w-full col-span-1 flex flex-col gap-2 lg:gap-4">
-            <DashboardCardsImageCard />
+            <DashboardCardsTodoCard />
           </div>
           <div class="w-full col-span-1 flex flex-col gap-4">
             <DashboardCardsCodeCard />
