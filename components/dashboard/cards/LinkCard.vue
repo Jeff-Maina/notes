@@ -2,7 +2,7 @@
 import {
   Ellipsis,
   ArrowUpRight,
-  Trash,
+  Trash2,
   Info,
   X,
   Edit,
@@ -13,12 +13,14 @@ import {
   Search,
   Clipboard,
 } from "lucide-vue-next";
+import { toast } from "vue-sonner";
 
 const type = ref("");
 const setType = (value: string) => (type.value = value);
 const removeReaction = () => (type.value = "");
 
 const isMenuOpen = ref(false);
+const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value);
 const openMenu = () => (isMenuOpen.value = true);
 const closeMenu = () => (isMenuOpen.value = false);
 
@@ -64,14 +66,15 @@ const removeTag = (value: string) => {
   tags.value = newTags;
 };
 
+const clearAlltags = () => {
+  tags.value = [];
+};
+
 // copying the link;
 const hasCopiedLink = ref(false);
 const copyLink = () => {
-  hasCopiedLink.value = true;
-
-  setTimeout(() => {
-    hasCopiedLink.value = false;
-  }, 2000);
+  toast.success("Link copied");
+  closeMenu();
 };
 
 // Reaction logic
@@ -120,7 +123,10 @@ const hideImage = () => (showImage.value = false);
 
 <template>
   <!-- link card -->
-  <div class="relative group/linkcard" :class="isAddingTag ? 'z-[999]' : 'z-0'">
+  <div
+    class="relative group/linkcard"
+    :class="[isAddingTag || isReacting || isMenuOpen ? 'z-[999]' : 'z-0']"
+  >
     <ReactionBar
       @dismissReaction="dismissReaction"
       @setType="setType"
@@ -130,7 +136,12 @@ const hideImage = () => (showImage.value = false);
       :isReacting="isReacting"
     />
     <div
-      class="absolute top-3 right-3 flex gap-1 items-center opacity-[0] group-hover/linkcard:opacity-[1] z-20 transition-all duration-300"
+      class="absolute top-3 right-3 flex gap-1 items-center"
+      :class="
+        isAddingTag || isDeletingLink || isMenuOpen
+          ? ''
+          : 'opacity-[0] group-hover/linkcard:opacity-[1] z-20 transition-all duration-300'
+      "
     >
       <!-- tags -->
       <div
@@ -139,10 +150,10 @@ const hideImage = () => (showImage.value = false);
         <!-- list all tags -->
         <button
           @click="toggleTagMenu"
-          :disabled="isProcessingDelete"
+          :disabled="isMenuOpen"
           class="flex items-center h-full"
         >
-          <div class="size-7 grid place-items-center">
+          <div class="size-7 grid place-items-center shrink-0">
             <Tag :size="12" stroke-width="3" />
           </div>
 
@@ -167,13 +178,13 @@ const hideImage = () => (showImage.value = false);
         <Transition name="add_tag">
           <div
             v-if="isAddingTag"
-            class="absolute top-[110%] right-0 w-52 rounded-2xl bg-black/70 backdrop-blur-lg origin-top-right overflow-hidden flex flex-col divide-y divide-white/20 z-[999]"
+            class="absolute top-[110%] right-0 w-52 rounded-2xl bg-black/80 backdrop-blur-lg origin-top-right overflow-hidden flex flex-col divide-y divide-white/10 z-[999]"
           >
             <div class="w-full flex items-center px-4 gap-2">
               <Search
                 :size="14"
                 stroke-width="3"
-                class="shrink-0 stroke-slate-300"
+                class="shrink-0 stroke-neutral-300"
               />
               <input
                 type="text"
@@ -184,7 +195,9 @@ const hideImage = () => (showImage.value = false);
             </div>
 
             <!-- existing tags div -->
-            <div class="flex flex-col divide-y divide-white/10">
+            <div
+              class="flex flex-col divide-y divide-white/10 max-h-36 overflow-scroll"
+            >
               <TransitionGroup name="list" tag="ul">
                 <button
                   v-for="(tag, index) in tags"
@@ -213,58 +226,58 @@ const hideImage = () => (showImage.value = false);
             <button
               v-if="newTag !== ''"
               @click="confirmTag"
-              class="p-3 hover:bg-black/30 px-4 flex items-center gap-3 py-2"
+              class="hover:bg-black/30 px-4 flex items-center gap-3 py-2"
             >
               <Tag :size="14" stroke-width="3" class="shrink-0" />
               <p class="truncate">{{ newTag }}</p>
             </button>
+
+            <!-- clear button -->
+            <div v-if="tags.length > 0" class="p-2">
+              <button
+                @click="clearAlltags"
+                class="hover:bg-black/30 px-4 flex items-center justify-center w-full gap-3 py-2 border border-white/10 rounded-full text-red-500"
+              >
+                Clear All
+              </button>
+            </div>
           </div>
         </Transition>
       </div>
-      <!-- copy link -->
-      <div class="group/btn_hover">
-        <Minitooltip :label="hasCopiedLink ? 'copied' : 'copy'" />
+      <!-- menu icon -->
+      <div class="group/btn_hover z-20">
         <button
-          @click="copyLink"
-          class="size-7 bg-black/70 hover:bg-black rounded-full grid place-items-center backdrop-blur-sm group/copybtn"
+          @click="toggleMenu"
+          class="size-7 bg-black/70 hover:bg-black rounded-full grid place-items-center backdrop-blur-sm text-white"
         >
-          <Clipboard
-            v-if="!hasCopiedLink"
-            class="text-white group-hover/copybtn:text-blue-500"
-            :size="12"
-            stroke-width="3"
-          />
-          <Check v-else :size="12" class="text-green-500" stroke-width="3" />
+          <Ellipsis :size="12" stroke-width="3" />
         </button>
-      </div>
-      <!-- delete link btn -->
-      <div
-        @click="deleteLink"
-        class="h-7 rounded-full grid place-items-center bg-black/70 hover:bg-black backdrop-blur-sm z-20 text-white hover:text-red-500 transition-all duration-200"
-      >
-        <button class="size-7 grid place-items-center">
-          <Trash :size="12" stroke-width="3" />
-        </button>
-        <!-- confirm delete btn -->
-        <Transition name="confirm_delete">
-          <button
-            :disabled="!isDeletingLink"
-            v-if="isDeletingLink"
-            @click="confirmDelete"
-            class="absolute right-0 top-0 bg-red-900 rounded-full leading-none grid place-items-center h-7 text-white font-semibold z-20 origin-right overflow-hidden transition-all duration-200"
-            :class="isProcessingDelete ? 'w-7 px-0' : 'w-20 pb-[2px] px-3'"
+        <Transition name="add_tag">
+          <div
+            v-if="isMenuOpen"
+            class="w-32 absolute top-[110%] right-0 flex flex-col divide-y divide-white/10 bg-black/80 shadow-lg backdrop-blur-xl origin-top-right rounded-xl overflow-hidden z-[999]"
           >
-            <span v-if="!isProcessingDelete">confirm</span>
-            <span
-              v-else
-              class="size-3 border-2 border-white border-t-transparent rounded-full animate-spin"
-            ></span>
-          </button>
+            <button
+              @click="copyLink"
+              class="py-2 hover:bg-black/90 px-4 flex items-center gap-2 w-full text-neutral-200 transition-all duration-200 font-semibold"
+            >
+              <Clipboard :size="14" stroke-width="3" />
+              Copy
+            </button>
+            <button
+              class="py-2 gap-2 hover:bg-black px-4 font-semibold flex items-center w-full text-red-500"
+            >
+              <Trash2 :size="14" stroke-width="3" />
+              Delete
+            </button>
+          </div>
         </Transition>
       </div>
     </div>
+
     <div
       @dblclick="showReaction"
+      @click="[dismissTag(), closeMenu()]"
       ref="card"
       class="w-full border transition-all duration-150 relative rounded-xl bg-white group/lin"
     >
@@ -302,8 +315,8 @@ const hideImage = () => (showImage.value = false);
 
   <!-- render mask to close the add tag menu when user clicks the screen -->
   <div
-    v-if="isAddingTag"
-    @click="dismissTag"
+    v-if="isAddingTag || isMenuOpen"
+    @click="[dismissTag(), closeMenu()]"
     class="fixed inset-0 w-full h-screen z-[998]"
   ></div>
 </template>
@@ -329,7 +342,7 @@ const hideImage = () => (showImage.value = false);
 
 .add_tag-enter-active,
 .add_tag-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.1s ease, transform 0.1s ease;
 }
 
 /* transition groups */

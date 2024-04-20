@@ -73,14 +73,7 @@ const toggleTheme = () => {
         />
         <Tooltip label="Notes" />
       </button>
-      <button class="size-10 group/button grid place-items-center relative">
-        <Twitter
-          :size="22"
-          class="stroke-neutral-600 group-hover/button:stroke-black"
-          stroke-width="1.5"
-        />
-        <Tooltip label="Tweet" />
-      </button>
+
       <button class="size-10 group/button grid place-items-center relative">
         <Image
           :size="22"
@@ -96,7 +89,6 @@ const toggleTheme = () => {
           stroke-width="1.5"
         />
         <Tooltip label="Color" />
-
       </button>
       <button class="size-10 group/button grid place-items-center relative">
         <Asterisk
@@ -105,7 +97,6 @@ const toggleTheme = () => {
           stroke-width="1.5"
         />
         <Tooltip label="Code block" />
-
       </button>
     </div>
     <div class="flex flex-col gap-4 py-4 w-full items-center h-1/4 justify-end">

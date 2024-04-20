@@ -15,11 +15,11 @@ const props = defineProps({
 
 <template>
   <div
-    class="absolute bg-white border border-neutral-300/70 flex rounded-full overflow-hidden z-[9999999] reaction_div"
+    class="absolute bg-white border border-neutral-300 flex rounded-full overflow-hidden z-[9999999] reaction_div"
     :class="isReacting ? 'scale-1 opacity-1' : 'scale-0 opacity-0'"
     :style="{
-      top: y !== undefined ? y - 50 + 'px' : 0,
-      left: x !== undefined ? x - 120 + 'px' : 0,
+      top: y !== undefined ? y - 55 + 'px' : 0,
+      left: x !== undefined ? x - 96 + 'px' : 0,
     }"
   >
     <button
@@ -29,12 +29,15 @@ const props = defineProps({
       <p class="">
         <Heart :size="20" class="stroke-red-500 fill-red-500" />
       </p></button
-    ><button
+    >
+    <!-- <button
       @click="[$emit('setType', 'star'), $emit('dismissReaction')]"
       class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>⭐</p></button
-    ><button
+    > -->
+    
+    <button
       @click="[$emit('setType', 'pin'), $emit('dismissReaction')]"
       class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
@@ -49,12 +52,13 @@ const props = defineProps({
       class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>🎯</p></button
-    ><button
+    >
+    <!-- <button
       @click="[$emit('setType', 'hot'), $emit('dismissReaction')]"
       class="size-12 text-xl grid place-items-center hover:bg-neutral-100"
     >
       <p>🔥</p>
-    </button>
+    </button> -->
   </div>
 
   <!-- mask -->

@@ -30,9 +30,12 @@ const dismissReaction = () => {
   isReacting.value = false;
 };
 
-// image stuff
+// censoring logic
 const isCensored = ref(true);
 const toggleCensor = () => (isCensored.value = !isCensored.value);
+
+
+// tags logic
 </script>
 
 <template>

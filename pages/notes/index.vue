@@ -44,8 +44,19 @@ const Links = [
     websiteName: "Michal Zalobny Portfolio 2021",
     websiteLink: "https://michalzalobny.com/",
     websiteFavicon: "https://twitter.com/favicon.ico",
-    websiteImage: "https://i.pinimg.com/736x/65/f6/4d/65f64dedbf1226feef7978ea2c9babc9.jpg",
+    websiteImage:
+      "https://i.pinimg.com/736x/65/f6/4d/65f64dedbf1226feef7978ea2c9babc9.jpg",
   },
+];
+
+const rainbowColors = [
+  "#ff0000", // Red
+  "#ff7f00", // Orange
+  "#ffff00", // Yellow
+  "#00ff00", // Green
+  "#0000ff", // Blue
+  "#4b0082", // Indigo
+  "#9400d3", // Violet
 ];
 </script>
 
@@ -58,21 +69,8 @@ const Links = [
           class="px-6 font-bold flex items-center justify-between w-full pb-4"
         ></header>
         <section class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
-          <div class="w-full col-span-1 flex flex-col gap-4">
-            <!-- link -->
-
-            <DashboardCardsLinkCard
-              v-for="(link, index) in Links"
-              :key="index"
-              :linkDetails="link"
-            />
-            <!-- colors -->
-            <!-- <DashboardCardsColorCard /> -->
-            <!-- todo -->
-            <!-- <DashboardCardsTodoCard /> -->
-            <!-- image -->
-            <!-- <DashboardCardsImageCard /> -->
-            <!-- codeblock -->
+          <div class="w-full col-span-1 flex flex-col gap-2 lg:gap-4">
+            <DashboardCardsImageCard />
           </div>
           <div class="w-full col-span-1 flex flex-col gap-4">
             <DashboardCardsCodeCard />
