@@ -65,6 +65,59 @@ const images = [
     link: "",
   },
 ];
+
+const todos = [
+  {
+    title: "Website Development",
+    tasks: [
+      {
+        todo: "Create wireframes for website layout",
+        isCompleted: false
+      },
+      {
+        todo: "Design mockups using Figma or Adobe XD",
+        isCompleted: false
+      },
+      {
+        todo: "Set up project environment using Node.js and npm",
+        isCompleted: true
+      },
+      {
+        todo: "Implement responsive design with CSS media queries",
+        isCompleted: false
+      },
+      {
+        todo: "Build website layout using HTML and CSS",
+        isCompleted: false
+      }
+      // Add more tasks as needed
+    ]
+  },
+  {
+    title: "Project Management",
+    tasks: [
+      {
+        todo: "Plan project timeline and milestones",
+        isCompleted: false
+      },
+      {
+        todo: "Assign tasks to team members and set deadlines",
+        isCompleted: false
+      },
+      {
+        todo: "Hold regular meetings to track progress",
+        isCompleted: false
+      },
+      {
+        todo: "Review and provide feedback on team deliverables",
+        isCompleted: true
+      }
+      // Add more tasks as needed
+    ]
+  }
+  // Add more categories as needed
+];
+
 </script>
 
 <template>
@@ -77,7 +130,7 @@ const images = [
         ></header>
         <section class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
           <div class="w-full col-span-1 flex flex-col gap-2 lg:gap-4">
-            <DashboardCardsTodoCard />
+            <DashboardCardsTodoCard v-for="task,index in todos" :key="index" :taskTitle="task.title" :todos="task.tasks" />
           </div>
           <div class="w-full col-span-1 flex flex-col gap-4">
             <DashboardCardsCodeCard />
