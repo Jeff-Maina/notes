@@ -48,6 +48,7 @@ const addTodo = (e: any) => {
     todos.value.push(task);
     newTodo.value = "";
     index.value++;
+    console.log(todos.value);
   }
 };
 const removeTodo = (value: number) => {
@@ -143,7 +144,7 @@ const submitTodos = () => {
               >
                 <button
                   class="md:size-5 shrink-0 border-2 rounded-lg grid place-items-center"
-                  @click="completeTask(index)"
+                  @click="completeTask(todo.index)"
                   :class="
                     todo.complete
                       ? 'border-2 border-orange-500 text-white bg-orange-500'
