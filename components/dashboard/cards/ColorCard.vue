@@ -282,23 +282,7 @@ const clearAlltags = () => {
     @click="[dismissTag(), closeMenu()]"
     class="fixed inset-0 w-full h-screen z-[998]"
   ></div>
-  <Toaster
-    :toastOptions="{
-      style: {
-        background: 'black',
-        borderRadius: '90px',
-        border: '1px solid #353535',
-        color: '#fff',
-        textAlign: 'center',
-        justifyContent: 'center',
-        margin: 'auto',
-        width: '11rem',
-        fontSize: '1rem',
-      },
-      class: 'toaster',
-    }"
-    position="bottom-center"
-  />
+
 </template>
 
 <style>

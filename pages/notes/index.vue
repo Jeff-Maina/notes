@@ -7,6 +7,7 @@ import {
   Ellipsis,
   Maximize2,
 } from "lucide-vue-next";
+import { Toaster } from "vue-sonner";
 
 definePageMeta({
   layout: false,
@@ -72,50 +73,100 @@ const todos = [
     tasks: [
       {
         todo: "Create wireframes for website layout",
-        isCompleted: false
+        isCompleted: false,
       },
       {
         todo: "Design mockups using Figma or Adobe XD",
-        isCompleted: false
+        isCompleted: false,
       },
       {
         todo: "Set up project environment using Node.js and npm",
-        isCompleted: true
+        isCompleted: true,
       },
       {
         todo: "Implement responsive design with CSS media queries",
-        isCompleted: false
+        isCompleted: false,
       },
       {
         todo: "Build website layout using HTML and CSS",
-        isCompleted: false
-      }
+        isCompleted: false,
+      },
       // Add more tasks as needed
-    ]
+    ],
   },
   {
     title: "Project Management",
     tasks: [
       {
         todo: "Plan project timeline and milestones",
-        isCompleted: false
+        isCompleted: false,
       },
       {
         todo: "Assign tasks to team members and set deadlines",
-        isCompleted: false
+        isCompleted: false,
       },
       {
         todo: "Hold regular meetings to track progress",
-        isCompleted: false
+        isCompleted: false,
       },
       {
         todo: "Review and provide feedback on team deliverables",
-        isCompleted: true
-      }
+        isCompleted: true,
+      },
       // Add more tasks as needed
-    ]
-  }
+    ],
+  },
   // Add more categories as needed
+];
+
+const codeSnippets = [
+  {
+    language: "python",
+    codeSnippet: `def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)`,
+    codeTitle: "Factorial function in Python",
+  },
+  {
+    language: "js",
+    codeSnippet: `function fibonacci(n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}`,
+    codeTitle: "Fibonacci series in JavaScript",
+  },
+  {
+    language: "java",
+    codeSnippet: `public class PrimeChecker {
+    public static boolean isPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}`,
+    codeTitle: "Prime number checker in Java",
+  },
+  {
+    language: "java",
+    codeSnippet: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello, World!";
+    return 0;
+}`,
+    codeTitle: "Hello World program in C++",
+  },
 ];
 
 </script>
@@ -128,27 +179,48 @@ const todos = [
         <header
           class="px-6 font-bold flex items-center justify-between w-full pb-4"
         ></header>
-        <section class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+        <section
+          class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4 min-h-screen"
+        >
           <div class="w-full col-span-1 flex flex-col gap-2 lg:gap-4">
-            <DashboardCardsTodoCard v-for="task,index in todos" :key="index" :taskTitle="task.title" :todos="task.tasks" />
-          </div>
-          <div class="w-full col-span-1 flex flex-col gap-4">
-            <DashboardCardsCodeCard />
-            <DashboardCardsTweetCard />
+            <DashboardCardsCodeCard
+              v-for="(snippet, index) in codeSnippets"
+              :key="index"
+              :codeSnippet="snippet.codeSnippet"
+              :codeTitle="snippet.codeTitle"
+              :language="snippet.language"
+            />
           </div>
           <div class="w-full col-span-1 flex flex-col gap-4">
             <DashboardCardsThoughtCard />
-            <DashboardCardsNotesCard />
+            <DashboardCardsColorCard :color="'#F84F39'" />
           </div>
           <div class="w-full col-span-1 flex flex-col gap-4">
-            <DashboardCardsTweetCard />
-            <DashboardCardsColorCard />
-            <DashboardCardsLinkCard />
+            <!-- <DashboardCardsNotesCard /> -->
+          </div>
+          <div class="w-full col-span-1 flex flex-col gap-4">
           </div>
         </section>
       </div>
     </section>
   </main>
+  <Toaster
+    :toastOptions="{
+      style: {
+        background: 'black',
+        borderRadius: '90px',
+        border: '1px solid #353535',
+        color: '#fff',
+        textAlign: 'center',
+        justifyContent: 'center',
+        margin: 'auto',
+        width: '11rem',
+        fontSize: '1rem',
+      },
+      class: 'toaster',
+    }"
+    position="bottom-center"
+  />
 </template>
 
 <style scoped></style>

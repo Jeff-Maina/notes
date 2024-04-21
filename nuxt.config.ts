@@ -3,8 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@vueuse/motion/nuxt', "nuxt-shiki"],
   shiki: {
-    bundledThemes: ['github-light'],
-    bundledLangs: ['js','python']
+    bundledThemes: ['catppuccin-frappe'],
+    bundledLangs: ['js','python','java']
   },
   css: ['~/assets/css/tailwind.css'],
   // modules: ['shadcn-nuxt'],

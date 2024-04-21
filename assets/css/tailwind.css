@@ -173,6 +173,38 @@ ol {
 .modal_scale-leave-active {
   transition: opacity 0.2s ease, transform 0.2s ease !important;
 }
+
+
+.add_tag-enter-from,
+.add_tag-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.add_tag-enter-active,
+.add_tag-leave-active {
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+/* transition groups */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+
+.tag-enter-active,
+.tag-leave-active {
+  transition: all 0.1s ease;
+}
+.tag-enter-from,
+.tag-leave-to {
+  opacity: 0;
+  transform: translateY(5px);
+}
 /** common styles */
 
 .b_container {

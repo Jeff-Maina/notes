@@ -334,24 +334,4 @@ const hideImage = () => (showImage.value = false);
 
 /* /// */
 
-.add_tag-enter-from,
-.add_tag-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.add_tag-enter-active,
-.add_tag-leave-active {
-  transition: opacity 0.1s ease, transform 0.1s ease;
-}
-
-/* transition groups */
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.3s ease;
-}
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-}
 </style>

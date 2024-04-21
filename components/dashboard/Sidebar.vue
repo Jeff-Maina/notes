@@ -30,6 +30,31 @@ const theme = ref("dark");
 const toggleTheme = () => {
   theme.value = theme.value === "dark" ? "light" : "dark";
 };
+
+// bookmarks
+const isCreatingBookmark = ref(false);
+const createBookmark = () => (isCreatingBookmark.value = true);
+const dismissBookmark = () => (isCreatingBookmark.value = false);
+
+// colors
+const isCreatingColor = ref(false);
+const createColor = () => (isCreatingColor.value = true);
+const dismissColor = () => (isCreatingColor.value = false);
+
+// colors
+const isCreatingImage = ref(false);
+const createImage = () => (isCreatingImage.value = true);
+const dismissImage = () => (isCreatingImage.value = false);
+
+// codeBlock
+const isCreatingCodeblock = ref(false);
+const createCodeblock = () => (isCreatingCodeblock.value = true);
+const dismissCodeblock = () => (isCreatingCodeblock.value = false);
+
+// todo;
+const isCreatingTodo = ref(false);
+const createTodo = () => (isCreatingTodo.value = true);
+const dismissTodo = () => (isCreatingTodo.value = false);
 </script>
 
 <template>
@@ -41,7 +66,10 @@ const toggleTheme = () => {
     <div
       class="flex flex-col gap-4 py-4 w-full items-center h-2/4 justify-center"
     >
-      <button class="size-10 group/button grid place-items-center relative">
+      <button
+        @click="createTodo"
+        class="size-10 group/button grid place-items-center relative"
+      >
         <ListTodo
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
@@ -57,13 +85,16 @@ const toggleTheme = () => {
         />
         <Tooltip label="Thought" />
       </button>
-      <button class="size-10 group/button grid place-items-center relative">
+      <button
+        @click="createBookmark"
+        class="size-10 group/button grid place-items-center relative"
+      >
         <Bookmark
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
         />
-        <Tooltip label="Link" />
+        <Tooltip label="Bookmark" />
       </button>
       <button class="size-10 group/button grid place-items-center relative">
         <Notebook
@@ -74,7 +105,10 @@ const toggleTheme = () => {
         <Tooltip label="Notes" />
       </button>
 
-      <button class="size-10 group/button grid place-items-center relative">
+      <button
+        @click="createImage"
+        class="size-10 group/button grid place-items-center relative"
+      >
         <Image
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
@@ -82,7 +116,10 @@ const toggleTheme = () => {
         />
         <Tooltip label="Image" />
       </button>
-      <button class="size-10 group/button grid place-items-center relative">
+      <button
+        @click="createColor"
+        class="size-10 group/button grid place-items-center relative"
+      >
         <Palette
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
@@ -90,7 +127,10 @@ const toggleTheme = () => {
         />
         <Tooltip label="Color" />
       </button>
-      <button class="size-10 group/button grid place-items-center relative">
+      <button
+        @click="createCodeblock"
+        class="size-10 group/button grid place-items-center relative"
+      >
         <Asterisk
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
@@ -100,14 +140,14 @@ const toggleTheme = () => {
       </button>
     </div>
     <div class="flex flex-col gap-4 py-4 w-full items-center h-1/4 justify-end">
-      <button
+      <!-- <button
         class="group/button relative bg-white size-10 rounded-full grid place-items-center"
         @click="toggleTheme"
       >
         <Moon v-if="theme === 'dark'" :size="22" class="stroke-blue-600" />
         <Sun v-else :size="22" class="stroke-yellow-500" />
-      </button>
-      <!-- <div class="relative">
+      </button> -->
+      <div class="relative">
         <button
           @click="toggleHelpMenu"
           class="group/button relative size-10 rounded-full grid place-items-center bg-white transition-all duration-100"
@@ -115,14 +155,14 @@ const toggleTheme = () => {
         >
           <CircleHelp
             :size="22"
-            class="stroke-neutral-800 group-hover/button:stroke-black"
+            class="stroke-blue-600 group-hover/button:stroke-blue-800"
           />
         </button>
         <DashboardMenuHelpMenu
           @toggleHelpMenu="closeHelpMenu"
           :isHelpMenuOpen="isHelpMenuOpen"
         />
-      </div> -->
+      </div>
       <div class="relative">
         <button
           @click="toggleUserMenu"
@@ -141,6 +181,27 @@ const toggleTheme = () => {
       </div>
     </div>
   </div>
+
+  <DashboardCreateNewBookmark
+    :isCreatingBookmark="isCreatingBookmark"
+    @dismissBookMark="dismissBookmark"
+  />
+  <DashboardCreateNewColor
+    :isCreatingColor="isCreatingColor"
+    @dismissColor="dismissColor"
+  />
+  <DashboardCreateNewImage
+    :isCreatingImage="isCreatingImage"
+    @dismissImage="dismissImage"
+  />
+  <DashboardCreateNewSnippet
+    :isCreatingCodeblock="isCreatingCodeblock"
+    @dismissCodeblock="dismissCodeblock"
+  />
+  <DashboardCreateNewTodo
+    :isCreatingTodo="isCreatingTodo"
+    @dismissTodo="dismissTodo"
+  />
 </template>
 
 <style scoped></style>
