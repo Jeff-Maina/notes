@@ -238,6 +238,15 @@ const palette2 = [
           <div class="break-inside-avoid mb-2 !col-span-2">
             <DashboardCardsThoughtCard />
           </div>
+          <div
+            v-for="(image, index) in images"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsImageCard
+              imageUrl="https://i.pinimg.com/564x/a5/4d/43/a54d433ffedd03aed23391c4ac672340.jpg"
+            />
+          </div>
           <div class="break-inside-avoid mb-2">
             <DashboardCardsColorCard :color="'#F84F39'" />
           </div>
@@ -251,11 +260,45 @@ const palette2 = [
           <div class="break-inside-avoid mb-2">
             <DashboardCardsPaletteCard :colors="palette" />
           </div>
+          <div
+            v-for="(image, index) in images"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsImageCard
+              imageUrl="https://i.pinimg.com/564x/ff/1c/e3/ff1ce3303546bf602bd09b884c07773a.jpg"
+            />
+          </div>
           <div class="break-inside-avoid mb-2">
             <DashboardCardsPaletteCard :colors="palette2" />
           </div>
-          <div v-for="todo,index in todos" :key="index" class="break-inside-avoid mb-2">
-            <DashboardCardsTodoCard :taskTitle="todo.title" :todos="todo.tasks" />
+          <div
+            v-for="(todo, index) in todos"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsTodoCard
+              :taskTitle="todo.title"
+              :todos="todo.tasks"
+            />
+          </div>
+          <div
+            v-for="(image, index) in images"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsImageCard
+              imageUrl="https://i.pinimg.com/564x/4d/68/ec/4d68ece78d4e49e874570d314522bd77.jpg"
+            />
+          </div>
+          <div
+            v-for="(image, index) in images"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsImageCard
+              imageUrl="https://i.pinimg.com/564x/0a/40/a0/0a40a0c48a4dd9fc6ae729119bcd0279.jpg"
+            />
           </div>
         </section>
       </div>

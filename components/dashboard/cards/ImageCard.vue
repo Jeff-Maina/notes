@@ -15,6 +15,12 @@ import {
   Download,
 } from "lucide-vue-next";
 
+const props = defineProps({
+  imageUrl: {
+    type: String,
+  },
+});
+
 import { Eye, EyeOff } from "lucide-vue-next";
 
 const type = ref("");
@@ -87,7 +93,6 @@ const removeTag = (value: string) => {
 const clearAlltags = () => {
   tags.value = [];
 };
-
 </script>
 
 <template>
@@ -257,7 +262,7 @@ const clearAlltags = () => {
           :class="isCensored ? 'opacity-1' : 'opacity-0'"
         ></div>
         <img
-          src="https://i.pinimg.com/564x/ff/1c/e3/ff1ce3303546bf602bd09b884c07773a.jpg"
+          :src="imageUrl"
           class="w-full object-cover"
           alt=""
         />
