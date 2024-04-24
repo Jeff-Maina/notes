@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Check, Maximize2 } from "lucide-vue-next";
+import { Check, Maximize2, StickyNote, Trash } from "lucide-vue-next";
 import { Pencil } from "lucide-vue-next";
 
 type Todos = {
@@ -53,35 +53,6 @@ const webDevelopmentTasks = [
 
 const arrTodos = ref(props.todos);
 
-const type = ref("");
-const setType = (value: string) => (type.value = value);
-const removeReaction = () => (type.value = "");
-
-const isReacting = ref(false);
-const x = ref(0);
-const y = ref(0);
-const card = ref(null);
-
-const showReaction = (e: MouseEvent) => {
-  if (!card.value) return;
-  const bounds = (card.value as HTMLElement).getBoundingClientRect();
-  const { top, left } = bounds;
-  const { clientX, clientY } = e;
-
-  const xPos = clientX - left;
-  const yPos = clientY - top;
-
-  x.value = xPos;
-  y.value = yPos;
-
-  isReacting.value = true;
-  console.log(xPos, yPos);
-};
-
-const dismissReaction = () => {
-  isReacting.value = false;
-};
-
 // is editing any card;
 const isEditingAnyTask = ref(false);
 const toggleEditingAnyTask = () =>
@@ -101,21 +72,11 @@ const allTasks = arrTodos.value?.length;
 
 <template>
   <div class="relative">
-    <ReactionBar
-      @dismissReaction="dismissReaction"
-      @setType="setType"
-      :type="type"
-      :x="x"
-      :y="y"
-      :isReacting="isReacting"
-    />
     <div
-      @dblclick="showReaction"
       ref="card"
-      class="w-full border border-neutral-300/60 rounded-3xl"
+      class="w-full border border-stone-300 rounded-3xl bg-stone-100"
     >
-      <Reaction :type="type" @removeReaction="removeReaction" />
-      <header class="p-5 flex flex-col gap-1 border-b">
+      <header class="p-5 flex flex-col gap-1 border-b border-stone-200">
         <p class="font-medium text-neutral-500 text">10/7/2020</p>
         <div class="flex gap-3 items-center group/title">
           <p
@@ -162,11 +123,16 @@ const allTasks = arrTodos.value?.length;
         </div>
       </div>
       <div
-        class="p-5 border-t border-neutral-200 flex items-center justify-between"
+        class="p-5 border-t border-stone-200 flex items-center justify-between"
       >
         <p class="md:text-lg font-semibold tracking-wider">
           {{ incompleteTasks }}/{{ allTasks }}
         </p>
+        <div class="flex gap-4">
+          <button class="text-neutral-500 hover:text-neutral-800 transition-all duration-100"><StickyNote :size="16" /></button>
+          <button class="text-neutral-500 hover:text-neutral-800 transition-all duration-100"><Trash :size="16" /></button>
+
+        </div>
       </div>
     </div>
   </div>

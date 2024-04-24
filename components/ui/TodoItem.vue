@@ -41,7 +41,7 @@ const cancelEdit = () => {
       class="md:size-5 shrink-0 border-2 rounded-lg translate-y-1 grid place-items-center"
       :class="
         isItemComplete
-          ? 'border-2 border-orange-500 text-white bg-orange-500'
+          ? 'border-2 border-black text-white bg-black'
           : 'border-2 border-neutral-400 hover:text-neutral-400 text-white'
       "
     >
@@ -59,7 +59,7 @@ const cancelEdit = () => {
         class="md:text-lg font-light relative"
         :class="
           isItemComplete
-            ? 'line-through decoration-2 decoration-orange-500 text-neutral-700'
+            ? 'line-through decoration-2 decoration-black text-neutral-500'
             : 'text-neutral-900'
         "
       >

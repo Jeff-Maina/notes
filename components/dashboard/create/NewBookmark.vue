@@ -100,12 +100,12 @@ const url = ref("");
           <div class="p-3 flex items-center justify-end gap-3">
             <button
             @click="$emit('dismissBookMark')"
-              class="p-3 px-6 font-semibold text-neutral-700 border border-neutral-200 hover:border-neutral-300 rounded-xl "
+              class="p-2 px-6 font-semibold text-neutral-700 border border-neutral-200 hover:border-neutral-300 rounded-xl "
             >
               Cancel
             </button>
             <button
-              class="p-3 px-6 font-semibold text-white rounded-xl bg-neutral-900"
+              class="p-2 px-6 font-semibold text-white rounded-xl bg-neutral-900"
             >
               Submit
             </button>

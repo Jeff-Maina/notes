@@ -6,6 +6,7 @@ import {
   ArrowUpRight,
   Ellipsis,
   Maximize2,
+  ChevronDown,
 } from "lucide-vue-next";
 import { Toaster } from "vue-sonner";
 
@@ -169,36 +170,92 @@ int main() {
   },
 ];
 
+const types = [
+  "All",
+  "Bookmarks",
+  "Code snippets",
+  "Todos",
+  "Colors",
+  "Images",
+];
+
+const activeType = ref("All");
+const filterTypes = (value: string) => (activeType.value = value);
+
+// const palette = ['#d3b49f','#421404','#c16804','#903500']
+const palette = [
+  "#2E4600", // Dark Green
+  "#3E721D", // Green
+  "#8DB600", // Lime Green
+  "#417B2C", // Moss Green
+  "#22573B", // Deep Green
+];
+
+const palette2 = [
+  "#121481", // Dark Green
+  "#4F6F52", // Green
+  "#FF76CE", // Lime Green
+];
 </script>
 
 <template>
   <main class="">
-    <section class="w-full m-auto border flex ml-auto justify-end">
+    <section class="w-full m-auto flex ml-auto justify-end">
       <DashboardSidebar />
-      <div class="py-4 w-[calc(100%-5rem)]">
+      <div class="pb-4 w-[calc(100%-4rem)]">
         <header
-          class="px-6 font-bold flex items-center justify-between w-full pb-4"
-        ></header>
-        <section
-          class="w-full grid md:grid-cols-2 lg:grid-cols-4 p-4 gap-4 min-h-screen"
+          class="px-4 font-bold flex items-center justify-between w-full h-20"
         >
-          <div class="w-full col-span-1 flex flex-col gap-2 lg:gap-4">
-            <DashboardCardsCodeCard
-              v-for="(snippet, index) in codeSnippets"
+          <div class="relative flex gap-6 items-center">
+            <button
+              v-for="(type, index) in types"
               :key="index"
+              @click="filterTypes(type)"
+              class="text-xl font-normal hover:text-black transition-all duration-200"
+              :class="type == activeType ? 'text-black' : 'text-neutral-500'"
+            >
+              {{ type }}
+            </button>
+          </div>
+        </header>
+        <section
+          class="w-full columns-1 md:columns-2 lg:columns-3 xl:columns-4 p-4 pt-0 min-h-screen h-full gap-2"
+        >
+          <div
+            v-for="(snippet, index) in codeSnippets"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsCodeCard
               :codeSnippet="snippet.codeSnippet"
               :codeTitle="snippet.codeTitle"
               :language="snippet.language"
             />
           </div>
-          <div class="w-full col-span-1 flex flex-col gap-4">
+          <!-- <div class="w-full col-span-1 flex flex-col gap-2 lg:gap-4"> -->
+          <!-- </div>
+          <div class="w-full col-span-1 flex flex-col gap-4"> -->
+          <div class="break-inside-avoid mb-2 !col-span-2">
             <DashboardCardsThoughtCard />
+          </div>
+          <div class="break-inside-avoid mb-2">
             <DashboardCardsColorCard :color="'#F84F39'" />
           </div>
-          <div class="w-full col-span-1 flex flex-col gap-4">
-            <!-- <DashboardCardsNotesCard /> -->
+          <div
+            v-for="(color, index) in rainbowColors"
+            :key="index"
+            class="break-inside-avoid mb-2"
+          >
+            <DashboardCardsColorCard :color="color" />
           </div>
-          <div class="w-full col-span-1 flex flex-col gap-4">
+          <div class="break-inside-avoid mb-2">
+            <DashboardCardsPaletteCard :colors="palette" />
+          </div>
+          <div class="break-inside-avoid mb-2">
+            <DashboardCardsPaletteCard :colors="palette2" />
+          </div>
+          <div v-for="todo,index in todos" :key="index" class="break-inside-avoid mb-2">
+            <DashboardCardsTodoCard :taskTitle="todo.title" :todos="todo.tasks" />
           </div>
         </section>
       </div>
@@ -214,7 +271,7 @@ int main() {
         textAlign: 'center',
         justifyContent: 'center',
         margin: 'auto',
-        width: '11rem',
+        width: '15rem',
         fontSize: '1rem',
       },
       class: 'toaster',
@@ -224,35 +281,3 @@ int main() {
 </template>
 
 <style scoped></style>
-
-<!-- <h1 class="text-2xl tracking-tighter text-black"></h1>
-<div class="flex items-center gap-3">
-  <div class="relative">
-    <button
-      @click="toggleCategoryMenu"
-      class="size-10 grid place-items-center rounded-full relative transition-all duration-100"
-      :class="
-        isCategoryMenuShowing
-          ? 'bg-white shadow z-[999]'
-          : 'bg-neutral-200 z-0'
-      "
-    >
-      <ListFilter
-        v-if="!isCategoryMenuShowing"
-        stroke-width="3"
-        class="stroke-neutral-600 size-4"
-      />
-      <X
-        v-else
-        :size="16"
-        stroke-width="3"
-        class="stroke-neutral-600"
-      />
-    </button>
-    <DashboardMenuCategoryMenu
-      @toggleMenu="closeCategoryMenu"
-      :isCategoryMenuShowing="isCategoryMenuShowing"
-    />
-  </div>
-  <DashboardCreateButton /> 
-</div> -->

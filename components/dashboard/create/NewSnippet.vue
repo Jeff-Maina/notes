@@ -107,7 +107,7 @@ const codeInput = ref<string>(``);
           />
           <div
             v-if="filterLanguages.length > 0 && isSearching"
-            class="w-64 max-h-64 absolute top-[110%] bg-white rounded-2xl border left-10 z-20 border-neutral-600 flex flex-col justify-start divide-y divide-neutral-200 overflow-auto"
+            class="w-64 max-h-64 absolute top-[110%] bg-white rounded-xl border left-10 z-20 border-neutral-400 flex flex-col justify-start divide-y divide-neutral-300 overflow-auto"
           >
             <button
               class="w-full h-12 min-h-12 flex items-center px-5 hover:bg-neutral-100 hover:text-neutral-800 text-neutral-600"
@@ -168,12 +168,12 @@ const codeInput = ref<string>(``);
                   <Shiki
                     lang="js"
                     :code="'#// ' + `${title}`"
-                    class="p-6 pb-3 !text-sm w-full overflow-scroll shiki_block !z-10 bg-[#303446] rounded-t-3xl"
+                    class="p-6 pb-3 !text-sm w-full overflow-scroll shiki_block !z-10 bg-[#303446] rounded-t-2xl"
                   />
                   <Shiki
                     lang="js"
                     :code="codeInput"
-                    class="p-6 pt-3 !text-sm w-full overflow-scroll shiki_block !z-10 h-52 bg-[#303446] rounded-b-3xl"
+                    class="p-6 pt-3 !text-sm w-full overflow-scroll shiki_block !z-10 h-52 bg-[#303446] rounded-b-2xl"
                   />
                 </div>
               </div>
@@ -184,12 +184,12 @@ const codeInput = ref<string>(``);
           <div class="p-3 flex items-center justify-end gap-3">
             <button
               @click="$emit('dismissCodeblock')"
-              class="p-3 px-6 font-semibold text-neutral-700 border border-neutral-200 hover:border-neutral-300 rounded-xl"
+              class="p-2 px-6 font-semibold text-neutral-700 border border-neutral-200 hover:border-neutral-300 rounded-xl"
             >
               Cancel
             </button>
             <button
-              class="p-3 px-6 font-semibold text-white rounded-xl bg-neutral-900"
+              class="p-2 px-6 font-semibold text-white rounded-xl bg-neutral-900"
             >
               Submit
             </button>

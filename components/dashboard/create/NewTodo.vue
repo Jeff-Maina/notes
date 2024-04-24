@@ -28,6 +28,13 @@ const title = ref("Untitled.");
 const isEditingTitle = ref(false);
 const editTitle = () => (isEditingTitle.value = true);
 const newTodo = ref("");
+
+const enterTitle = (e: any) => {
+  if (e.key === "Enter") {
+    isEditingTitle.value = false;
+  }
+};
+
 const index = ref(0);
 
 type Todotype = {
@@ -72,12 +79,15 @@ const submitTodos = () => {
 </script>
 
 <template>
+  <!-- mask -->
   <Transition name="fade">
     <div
       v-if="isCreatingTodo"
       class="fixed z-[999] w-full h-screen bg-black/20 pt-20"
     ></div>
   </Transition>
+
+  <!-- modal -->
   <Transition name="modal_slide">
     <div
       v-if="isCreatingTodo"
@@ -86,7 +96,6 @@ const submitTodos = () => {
       <div
         class="w-full max-w-2xl bg-white rounded-2xl shadow flex flex-col overflow-scroll divide-y divide-neutral-200"
       >
-        <!-- todos -->
         <div class="flex flex-col divide-y divide-neutral-200/70 min-h-[60vh]">
           <div class="flex flex-col gap-2 group/title p-6">
             <div class="w-full flex items-center gap-2">
@@ -95,6 +104,7 @@ const submitTodos = () => {
                 type="text"
                 v-model="title"
                 name="title"
+                @keydown="enterTitle"
                 @blur="() => (isEditingTitle = false)"
                 class="text-3xl font-semibold border border-neutral-400 leading-none !py-0 outline-none max-w-min"
               />
@@ -134,8 +144,8 @@ const submitTodos = () => {
             />
           </div>
 
+          <!-- !list todos -->
           <div class="p-6 flex flex-col gap-2">
-            <!-- list todos -->
             <div v-if="todos.length > 0" class="flex flex-col gap-2 w-full">
               <div
                 v-for="(todo, index) in todos"
@@ -154,17 +164,20 @@ const submitTodos = () => {
                   <Check :size="14" stroke-width="3" />
                 </button>
                 <div class="">
-                  <p class="text-lg break-all">{{ todo.task }}</p>
+                  <p
+                    class="text-lg break-all"
+                    :class="
+                      todo.complete
+                        ? 'line-through decoration-2 decoration-orange-500 text-neutral-700'
+                        : 'text-neutral-900'
+                    "
+                  >
+                    {{ todo.task }}
+                  </p>
                 </div>
                 <div
                   class="flex opacity-0 items-center gap-3 group-hover/taskcard:opacity-[1] transition-all duration-200"
                 >
-                  <button
-                    @click="removeTodo(todo.index)"
-                    class="shrink-0 text-neutral-400 hover:text-black transition-all duration-200"
-                  >
-                    <Pencil :size="14" stroke-width="3" />
-                  </button>
                   <button
                     @click="removeTodo(todo.index)"
                     class="shrink-0 text-neutral-400 hover:text-red-600 transition-all duration-200"
@@ -177,6 +190,7 @@ const submitTodos = () => {
           </div>
         </div>
 
+        <!-- tags yo -->
         <div class="h-14 flex items-center relative">
           <div class="w-12 grid place-items-center absolute inset-0">
             <Tag :size="16" class="stroke-neutral-600" />
@@ -225,12 +239,6 @@ const submitTodos = () => {
           </div>
         </div>
       </div>
-      <!-- <button
-        @click="$emit('dismissBookmark')"
-        class="size-10 bg-neutral-100 rounded-full grid place-items-center absolute top-3 right-3"
-      >
-        <X :size="18" stroke-width="3" />
-      </button> -->
     </div>
   </Transition>
 </template>

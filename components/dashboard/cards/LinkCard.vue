@@ -109,6 +109,7 @@ type linkdetails = {
   websiteName: string;
   websiteFavicon: string;
   websiteImage: string;
+  tags: String[]
 };
 
 const props = defineProps({

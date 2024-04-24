@@ -10,6 +10,7 @@ import {
   Bookmark,
   Book,
   Palette,
+  PaintBucket,
   Image,
   Twitter,
   ListTodo,
@@ -120,7 +121,7 @@ const dismissTodo = () => (isCreatingTodo.value = false);
         @click="createColor"
         class="size-10 group/button grid place-items-center relative"
       >
-        <Palette
+        <PaintBucket
           :size="22"
           class="stroke-neutral-600 group-hover/button:stroke-black"
           stroke-width="1.5"
