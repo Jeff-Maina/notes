@@ -59,7 +59,7 @@ const cancelEdit = () => {
         class="md:text-lg font-light relative"
         :class="
           isItemComplete
-            ? 'line-through decoration-2 decoration-black text-neutral-500'
+            ? 'line-through decoration-2 decoration-black text-neutral-700'
             : 'text-neutral-900'
         "
       >
